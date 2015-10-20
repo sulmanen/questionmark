@@ -4,8 +4,8 @@
             [compojure.core :refer [defroutes ANY]]))
 
 (defroutes app
-  (ANY "/foo" [] (resource :available-media-types ["text/html"]
-                           :handle-ok "<html>Hello, Internet.</html>")))
+  (ANY "/questions" [] (resource :available-media-types ["application/json"]
+                           :handle-ok (slurp "resources/data/questionnaire.json"))))
 
 (def handler
   (-> app
