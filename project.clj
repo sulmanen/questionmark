@@ -6,6 +6,8 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.6.0"]
+                 [org.clojure/java.jdbc "0.4.2"]
+                 [org.postgresql/postgresql "9.4-1203-jdbc42"]
                  [liberator "0.13"]
                  [clj-postgresql "0.4.0"]
                  [compojure "1.3.4"]
