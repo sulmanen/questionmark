@@ -9,13 +9,12 @@
 (def db-spec {:classname "org.postgresql.Driver"
               :subprotocol "postgresql"
               :subname "//localhost:5432/survey"
-              :user "sulmanen"
-              :password "pftvppeh"})
+              :user "pepsi"
+              :password "pepsi"})
 
 ; Import the SQL query as a function.
 (defquery write-answer "survey/write_answer.sql"
    {:connection db-spec})
-
 
 
 (defroutes app
