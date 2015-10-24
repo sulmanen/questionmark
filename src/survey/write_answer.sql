@@ -1,2 +1,2 @@
 -- Doesn't do a whole lot
-SELECT * FROM cities
+INSERT INTO answers VALUES (:name , :enrolled)
