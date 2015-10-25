@@ -1,0 +1,25 @@
+{
+  "name": "questionmark",
+  "version": "0.0.1",
+  "authors": [
+    "Samuli <samuli.ulmanen@iki.fi>"
+  ],
+  "description": "aalto groupwork survey",
+  "main": "questionmark.js",
+  "moduleType": [],
+  "keywords": [
+    "questionnaire"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.14.0"
+  }
+}

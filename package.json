@@ -1,0 +1,37 @@
+{
+  "name": "groupwork",
+  "version": "0.0.1",
+  "description": "group work",
+  "main": " ",
+  "scripts": {
+    "test": " "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sulmanen/questionmark.git"
+  },
+  "keywords": [
+    "surveymachine"
+  ],
+  "author": "Samuli <s.ulmanen@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sulmanen/questionmark/issues"
+  },
+  "homepage": "https://github.com/sulmanen/questionmark#readme",
+  "devDependencies": {
+    "babel": "^5.8.29",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.3.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-gzip": "^1.2.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-uglify": "^1.4.2",
+    "gulp-watch": "^4.3.5",
+    "jshint-stylish": "^2.0.1",
+    "rimraf": "^2.4.3"
+  },
+  "dependencies": {
+    "react": "^0.14.0"
+  }
+}
