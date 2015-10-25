@@ -46,9 +46,9 @@
       :available-media-types ["application/json"]
       :handle-ok (read-answer)
       :post! (fn [ctx]
-               (write-answer! (parse-json ctx))))))
-
-
+               (write-answer! (parse-json ctx)))))
+  (ANY "/" [] (resource :available-media-types ["text/html"]
+                           :handle-ok (slurp "resources/index.html"))))
 
 (def handler
   (-> app

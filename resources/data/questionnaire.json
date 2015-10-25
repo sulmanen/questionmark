@@ -3,6 +3,7 @@
     "questions": [
         {
             "id": "-1",
+            "name": "role",
             "text": "I'm a",
             "type": "select",
             "config": {
@@ -26,6 +27,7 @@
     {
         "id": "0",
         "text": "Email",
+        "name": "email"
         "type": "email",
         "value":"sulmanen@foo.bar",
         "config": {}
@@ -33,6 +35,7 @@
     {
         "id": "1",
         "text": "Started studies",
+        "name": "enrolled"
         "type": "range",
         "config": {
             "from": 1960,
@@ -43,6 +46,7 @@
         {
             "id": "2",
             "text": "Graduated",
+            "name": "graduated"
             "type": "range",
             "config": {
                 "from": 1970,
@@ -60,130 +64,22 @@
                 "delta": 1
             }
         },
-        {
-            "id": "4",
-            "text": "I am more aware of the type of learner I am due to my studies at Aalto University.",
-            "type": "range",
-            "config" {
-                "from": 1,
-                "to": 10
-            }
-        },
-        {
-            "id": "5",
-            "text": "I am a better negotiator due to my studies at Aalto University.",
-            "type": "range",
-            "config" {
-                "from": 1,
-                "to": 10
-            }
-        },
-        {
-            "id": "6",
-            "text": "I am able to work in a group due to my studies at Aalto University.",
-            "type": "range",
-            "config" {
-                "from": 1,
-                "to": 10
-            }
-        },
-        {
-            "id": "7",
-            "text": "I am better at seeing and defining problems and seeking solutions to them due to my studies at Aalto University.",
-            "type": "range",
-            "config" {
-                "from": 1,
-                "to": 10
-            }
-        },
-        {
-            "id": "8",
-            "text": "I am willing to change my opinion on a topic given new information due to my studies at Aalto University.",
-            "type": "range",
-            "config" {
-                "from": 1,
-                "to": 10
-            }
-        },
-        {
-            "id": "9",
-            "text": "I am more critical to the knowledge I find due to my studies at Aalto University.",
-            "type": "range",
-            "config" {
-                "from": 1,
-                "to": 10
-            }
-        },
-        {
-            "id": "10",
-            "text": "I am a lifelong learner due to my studies at Aalto University.",
-            "type": "range",
-            "config" {
-                "from": 1,
-                "to": 10
-            }
-        },
-        {
-            "id": "11",
-            "text": "My students are becoming better learners because of my teaching",
-            "type": "range",
-            "config" {
-                "from": 1,
-                "to": 10
-            }
-        },
-        {
-            "id": "12",
-            "text": "My students are better negotiators due to them taking my course.",
-            "type": "range",
-            "config" {
-                "from": 1,
-                "to": 10
-            }
-        },
-        {
-            "id": "13",
-            "text": "My students work better together because they attended my course.",
-            "type": "range",
-            "config" {
-                "from": 1,
-                "to": 10
-            }
-        },
-        {
-            "id": "14",
-            "text": "My students actively seek out problems, collect information and come up with new understanding on my course.",
-            "type": "range",
-            "config" {
-                "from": 1,
-                "to": 10
-            }
-        },
-        {
-            "id": "15",
-            "text": "My students are better at seeing gaps in the field of knowledge due to attending my course.",
-            "type": "range",
-            "config" {
-                "from": 1,
-                "to": 10
-            }
-        },
-        {
-            "id": "16",
-            "text": "My students are more open minded due to my teaching on my course.",
-            "type": "range",
-            "config" {
-                "from": 1,
-                "to": 10
-            }
-        },
-        {
-            "id": "17",
-            "text": "My students are likely to love knowledge more and actively take responsibility of their learning due to my teaching here at Aalto University.",
-            "type": "range",
-            "config" {
-                "from": 1,
-                "to": 10
-            }
+        "roles": {
+            "student":[
+                {
+                    "id": "4",
+                    "text": "I am better at groupwork due to my studies at Aalto University.",
+                    "type": "range",
+                    "config" {
+                        "from": 1,
+                        "to": 10
+                    }
+                }
+            ],
+            "teacher": [
+
+            ],
+            "employer": []
         }
+
 ]}
