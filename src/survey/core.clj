@@ -1,7 +1,7 @@
 (ns survey.core
-    (:require [liberator.core :refer [resource defresource]]
-            [ring.middleware.params :refer [wrap-params]]
+  (:require [liberator.core :refer [resource defresource]]
             [compojure.core :refer [defroutes ANY]]
+            [ring.middleware.params :refer [wrap-params]]
             [clojure.java.io :as io]
             [clojure.data.json :as json]))
 
@@ -48,7 +48,11 @@
       :post! (fn [ctx]
                (write-answer! (parse-json ctx)))))
   (ANY "/" [] (resource :available-media-types ["text/html"]
-                           :handle-ok (slurp "resources/index.html"))))
+                        :handle-ok (slurp "resources/index.html")))
+  (ANY "/js/questionmark.js" [] (resource :available-media-types ["text/html"]
+                                          :handle-ok (slurp "resources/public/questionmark.js")))
+  )
+
 
 (def handler
   (-> app

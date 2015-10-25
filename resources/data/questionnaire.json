@@ -2,47 +2,24 @@
     "token": "3764302978432647950309572",
     "questions": [
         {
-            "id": "-1",
-            "name": "role",
-            "text": "I'm a",
-            "type": "select",
+            "id": "0",
+            "text": "Email",
+            "name": "email"
+            "type": "email",
+            "value":"sulmanen@foo.bar",
+            "config": {}
+        },
+        {
+        "id": "1",
+            "text": "Started studies",
+            "name": "enrolled"
+            "type": "range",
             "config": {
-                "values": [
-                    {
-                        "id": "0",
-                        "text": "Student"
-                    },
-                    {
-                        "id": "1",
-                        "text": "Staff"
-                    },
-                    {
-                        "id": "2",
-                        "text": "Employer"
-                    }
-
-                ]
+                "from": 1960,
+                "to": 2015,
+                "delta": 1
             }
         },
-    {
-        "id": "0",
-        "text": "Email",
-        "name": "email"
-        "type": "email",
-        "value":"sulmanen@foo.bar",
-        "config": {}
-    },
-    {
-        "id": "1",
-        "text": "Started studies",
-        "name": "enrolled"
-        "type": "range",
-        "config": {
-            "from": 1960,
-            "to": 2015,
-            "delta": 1
-        }
-    },
         {
             "id": "2",
             "text": "Graduated",
@@ -57,6 +34,7 @@
         {
             "id": "3",
             "text": "Birth year",
+            "name": "birth",
             "type": "rage",
             "config": {
                 "from": 1940,
@@ -64,22 +42,13 @@
                 "delta": 1
             }
         },
-        "roles": {
-            "student":[
-                {
-                    "id": "4",
-                    "text": "I am better at groupwork due to my studies at Aalto University.",
-                    "type": "range",
-                    "config" {
-                        "from": 1,
-                        "to": 10
-                    }
-                }
-            ],
-            "teacher": [
-
-            ],
-            "employer": []
+        {
+            "id": "4",
+            "text": "I am better at groupwork due to my studies at Aalto University.",
+            "type": "range",
+            "config" {
+                "from": 1,
+                "to": 10
+            }
         }
-
 ]}
