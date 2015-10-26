@@ -1,15 +1,35 @@
 var Questionnaire = React.createClass({
+    send: function() {
+        alert(1);
+    },
     render: function() {
         var questions = this.props.questions.map(function(question){
-            return <Question key={question.id} name={question.name}/>
+            if (question.type === 'range') {
+                return <RangeQuestion key={question.id} text={question.text} config={question.config}/>
+            }
         });
-        return<div>{questions}</div>;
+        return<div>{questions} <button onClick={this.send}>Send</button></div>;
     }
 });
 
-var Question = React.createClass({
+var RangeQuestion = React.createClass({
+    getInitialState: function() {
+        return { value: Math.floor((this.props.config.max -this.props.config.min)/2)};
+    },
+    onInput: function(e) {
+        this.setState({value: e.target.value});
+    },
     render: function() {
-        return <h1>{this.props.name}</h1>
+        return <div>
+        <h1>{this.props.text}</h1>
+
+        <div>{this.state.value}</div>
+        <input type="range"
+        onInput={this.onInput}
+        min={this.props.config.min} max={this.props.config.max}
+        step={this.props.config.step}/>
+
+        <div>{this.props.config.min}</div><div>{this.props.config.max}</div></div>
     }
 });
 
@@ -28,9 +48,9 @@ var QUESTIONS = [
             "name": "enrolled",
             "type": "range",
             "config": {
-                "from": 1960,
-                "to": 2015,
-                "delta": 1
+                "min": 1960,
+                "max": 2015,
+                "step": 1
             }
         },
         {
@@ -39,20 +59,20 @@ var QUESTIONS = [
             "name": "graduated",
             "type": "range",
             "config": {
-                "from": 1970,
-                "to": 2015,
-                "delta": 1
+                "min": 1970,
+                "max": 2015,
+                "step": 1
             }
         },
         {
             "id": "3",
             "text": "Birth year",
             "name": "birth",
-            "type": "rage",
+            "type": "range",
             "config": {
-                "from": 1940,
-                "to": 2000,
-                "delta": 1
+                "min": 1940,
+                "max": 2000,
+                "step": 1
             }
         },
         {
@@ -61,8 +81,8 @@ var QUESTIONS = [
             "name": "groupwork",
             "type": "range",
             "config" :{
-                "from": 1,
-                "to": 10
+                "min": 1,
+                "max": 10
             }
         }
 ];
