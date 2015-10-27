@@ -51,6 +51,8 @@
                         :handle-ok (slurp "resources/index.html")))
   (ANY "/js/questionmark.js" [] (resource :available-media-types ["text/html"]
                                           :handle-ok (slurp "resources/public/questionmark.js")))
+  (ANY "/aalto.svg" [] (resource :available-media-types ["image/svg+xml"]
+                                          :handle-ok (slurp "resources/public/aalto.svg")))
   )
 
 
