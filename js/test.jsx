@@ -1,13 +1,16 @@
 var Questionnaire = React.createClass({
+    nextQuestion: function() {
+        this.setState({ answers: this.state.answers, currentQuestion: ++this.state.currentQuestion});
+        console.log(this.state);
+    },
     changeAnswer: function(name, value) {
         var answers = this.state.answers;
         answers[name] = value;
-        this.setState({ answers: answers });
-        console.log(answers);
+        this.setState({ answers: answers, currentQuestion: this.state.currentQuestion });
     },
     getInitialState: function() {
         return {
-            answers: {}
+            answers: {}, currentQuestion: 0
         };
     },
     send: function() {
@@ -16,7 +19,7 @@ var Questionnaire = React.createClass({
     render: function() {
         var questions = this.props.questions.map(function(question){
             if (question.type === 'range') {
-                return <RangeQuestion key={question.id} name={question.name} text={question.text} config={question.config} changeAnswer={this.changeAnswer}/>
+                return <RangeQuestion key={question.id} name={question.name} text={question.text} config={question.config} changeAnswer={this.changeAnswer} nextQuestion={this.nextQuestion}/>
             }
         }.bind(this));
         return<div>{questions} <button onClick={this.send}>Send</button></div>;
@@ -38,6 +41,7 @@ var RangeQuestion = React.createClass({
         <div>{this.state.value}</div>
         <input type="range"
         onInput={this.onInput}
+        onMouseUp={this.props.nextQuestion}
         min={this.props.config.min} max={this.props.config.max}
         step={this.props.config.step}/>
 
