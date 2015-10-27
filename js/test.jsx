@@ -35,7 +35,7 @@ var RangeQuestion = React.createClass({
         this.props.changeAnswer(this.props.name, e.target.value);
     },
     render: function() {
-        return <div style={{display: this.props.currentQuestion === this.props.id ? 'block' : 'none'}}>
+        return <div className="range-question" style={{display: this.props.currentQuestion === this.props.id ? 'block' : 'none'}}>
         <h1>{this.props.text}</h1>
 
 
