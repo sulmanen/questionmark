@@ -38,14 +38,15 @@ var RangeQuestion = React.createClass({
         return <div style={{display: this.props.currentQuestion === this.props.id ? 'block' : 'none'}}>
         <h1>{this.props.text}</h1>
 
-        <div>{this.state.value}</div>
+
         <input className="q-range" type="range"
         onInput={this.onInput}
         onMouseUp={this.props.nextQuestion}
         min={this.props.config.min} max={this.props.config.max}
         step={this.props.config.step}/>
 
-        <div>{this.props.config.min}</div><div>{this.props.config.max}</div></div>
+        <div className="q-range-value">{this.state.value}</div>
+        </div>
     }
 });
 
@@ -103,4 +104,4 @@ var QUESTIONS = [
         }
 ];
 
-ReactDOM.render(<Questionnaire questions={QUESTIONS} />, document.getElementById('example'));
+ReactDOM.render(<Questionnaire questions={QUESTIONS} />, document.getElementById('questions'));
