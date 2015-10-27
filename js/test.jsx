@@ -1,13 +1,24 @@
 var Questionnaire = React.createClass({
+    changeAnswer: function(name, value) {
+        var answers = this.state.answers;
+        answers[name] = value;
+        this.setState({ answers: answers });
+        console.log(answers);
+    },
+    getInitialState: function() {
+        return {
+            answers: {}
+        };
+    },
     send: function() {
         alert(1);
     },
     render: function() {
         var questions = this.props.questions.map(function(question){
             if (question.type === 'range') {
-                return <RangeQuestion key={question.id} text={question.text} config={question.config}/>
+                return <RangeQuestion key={question.id} name={question.name} text={question.text} config={question.config} changeAnswer={this.changeAnswer}/>
             }
-        });
+        }.bind(this));
         return<div>{questions} <button onClick={this.send}>Send</button></div>;
     }
 });
@@ -18,6 +29,7 @@ var RangeQuestion = React.createClass({
     },
     onInput: function(e) {
         this.setState({value: e.target.value});
+        this.props.changeAnswer(this.props.name, e.target.value);
     },
     render: function() {
         return <div>
