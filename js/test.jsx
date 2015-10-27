@@ -19,7 +19,7 @@ var Questionnaire = React.createClass({
     render: function() {
         var questions = this.props.questions.map(function(question){
             if (question.type === 'range') {
-                return <RangeQuestion key={question.id} name={question.name} text={question.text} config={question.config} changeAnswer={this.changeAnswer} nextQuestion={this.nextQuestion}/>
+                return <RangeQuestion currentQuestion={this.state.currentQuestion} id={question.id} key={question.id} name={question.name} text={question.text} config={question.config} changeAnswer={this.changeAnswer} nextQuestion={this.nextQuestion}/>
             }
         }.bind(this));
         return<div>{questions} <button onClick={this.send}>Send</button></div>;
@@ -35,7 +35,7 @@ var RangeQuestion = React.createClass({
         this.props.changeAnswer(this.props.name, e.target.value);
     },
     render: function() {
-        return <div>
+        return <div style={{display: this.props.currentQuestion === this.props.id ? 'block' : 'none'}}>
         <h1>{this.props.text}</h1>
 
         <div>{this.state.value}</div>
@@ -59,7 +59,7 @@ var QUESTIONS = [
             "config": {}
         },
         {
-        "id": "1",
+        "id": 0,
             "text": "Started studies",
             "name": "enrolled",
             "type": "range",
@@ -70,7 +70,7 @@ var QUESTIONS = [
             }
         },
         {
-            "id": "2",
+            "id": 1,
             "text": "Graduated",
             "name": "graduated",
             "type": "range",
@@ -81,7 +81,7 @@ var QUESTIONS = [
             }
         },
         {
-            "id": "3",
+            "id": 2,
             "text": "Birth year",
             "name": "birth",
             "type": "range",
@@ -92,7 +92,7 @@ var QUESTIONS = [
             }
         },
         {
-            "id": "4",
+            "id": 3,
             "text": "I am better at groupwork due to my studies at Aalto University.",
             "name": "groupwork",
             "type": "range",
