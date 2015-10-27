@@ -39,7 +39,7 @@ var RangeQuestion = React.createClass({
         <h1>{this.props.text}</h1>
 
         <div>{this.state.value}</div>
-        <input type="range"
+        <input className="q-range" type="range"
         onInput={this.onInput}
         onMouseUp={this.props.nextQuestion}
         min={this.props.config.min} max={this.props.config.max}
