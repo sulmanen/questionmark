@@ -51,7 +51,7 @@ var EmailQuestion = React.createClass({
 });
 var RangeQuestion = React.createClass({
     getInitialState: function() {
-        return { value: Math.floor((this.props.config.max - this.props.config.min)/2)};
+        return { value: Math.floor((this.props.config.max - this.props.config.min)/2) + this.props.config.min };
     },
     onInput: function(e) {
         this.setState({value: e.target.value});
