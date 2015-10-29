@@ -1,20 +1,60 @@
 var Questionnaire = React.createClass({
+    timeout: null,
     nextQuestion: function() {
-        this.setState({ answers: this.state.answers, currentQuestion: ++this.state.currentQuestion});
-        console.log(this.state);
+        this.setState({ answers: this.state.answers, currentQuestion: ++this.state.currentQuestion, sending: this.state.sending, displayThankYou: this.stateDisplayThankYou });
     },
     changeAnswer: function(name, value) {
         var answers = this.state.answers;
         answers[name] = value;
-        this.setState({ answers: answers, currentQuestion: this.state.currentQuestion });
+        this.setState({ answers: answers, currentQuestion: this.state.currentQuestion, sending: this.state.sending, displayThankYou: this.stateDisplayThankYou });
+
+        if (this.state.currentQuestion >= (this.props.questions.length - 1)) {
+            window.clearTimeout(this.timeout);
+            window.setTimeout(function() {
+                this.sendAnswers();
+            }.bind(this), 1000);
+        }
+    },
+    sayThanks: function() {
+        this.setState({ answers: this.state.answers, currentQuestion: this.state.currentQuestion, sending: this.state.sending, displayThankYou: true });
     },
     getInitialState: function() {
         return {
-            answers: {}, currentQuestion: 0
+            answers: {},
+            currentQuestion: 0,
+            sending: false,
+            displayThankYou: false
         };
     },
-    send: function() {
-        alert(1);
+    toggleSpinner: function(isSending) {
+        this.setState({ answers: this.state.answers, currentQuestion: this.state.currentQuestion, sending: isSending, displayThankYou: this.state.displayThankYou});
+    },
+    startSpinner: function() {
+        this.toggleSpinner(true);
+    },
+    stopSpinner: function() {
+        this.toggleSpinner(false);
+    },
+    sendAnswers: function() {
+        var request = new XMLHttpRequest();
+        this.startSpinner();
+        request.onreadystatechange = function() {
+            if (request.readyState == XMLHttpRequest.DONE ) {
+                if(request.status == 201){
+                    this.stopSpinner();
+                    this.sayThanks();
+                }
+                else {
+                    alert('Oops!')
+                }
+            }
+        }.bind(this);
+
+        request.open("POST", "answers", true);
+        request.setRequestHeader("Content-type", "application/json");
+        request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+
+        request.send(JSON.stringify(this.state.answers));
     },
     render: function() {
         var questions = this.props.questions.map(function(question){
@@ -27,7 +67,7 @@ var Questionnaire = React.createClass({
                 return <RangeQuestion currentQuestion={this.state.currentQuestion} id={question.id} key={question.id} name={question.name} text={question.text} config={question.config} changeAnswer={this.changeAnswer} nextQuestion={this.nextQuestion}/>
             }
         }.bind(this));
-        return<div>{questions} <button onClick={this.send}>Send</button></div>;
+        return<div className={this.state.sending ? 'spinner q-groupwork': 'q-groupwork'}><div style={{ display: this.state.displayThankYou ? 'block' : 'none'}}><h1>Thank you!</h1> <div className="checkmark"></div></div>{questions}</div>;
     }
 });
 
@@ -55,7 +95,7 @@ var RangeQuestion = React.createClass({
     },
     onInput: function(e) {
         this.setState({value: e.target.value});
-        this.props.changeAnswer(this.props.name, e.target.value);
+        this.props.changeAnswer(this.props.name, parseInt(e.target.value, 10));
     },
     render: function() {
         return <div className="range-question" style={{ display: this.props.currentQuestion === this.props.id ? 'block' : 'none'}}>
