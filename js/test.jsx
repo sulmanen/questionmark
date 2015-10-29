@@ -18,6 +18,11 @@ var Questionnaire = React.createClass({
     },
     render: function() {
         var questions = this.props.questions.map(function(question){
+            if (question.type === 'email') {
+                return <EmailQuestion currentQuestion={this.state.currentQuestion}
+                id={question.id} key={question.id} name={question.name} text={question.text} nextQuestion={this.nextQuestion} changeAnswer={this.changeAnswer}/>
+            }
+
             if (question.type === 'range') {
                 return <RangeQuestion currentQuestion={this.state.currentQuestion} id={question.id} key={question.id} name={question.name} text={question.text} config={question.config} changeAnswer={this.changeAnswer} nextQuestion={this.nextQuestion}/>
             }
@@ -26,16 +31,34 @@ var Questionnaire = React.createClass({
     }
 });
 
+var EmailQuestion = React.createClass({
+    getInitialState: function() {
+        return { value: ''};
+    },
+    onDone: function(e) {
+        if (e.keyCode === 13) {
+            this.setState({ value: e.target.value });
+            this.props.changeAnswer(this.props.name, e.target.value);
+            this.props.nextQuestion();
+        }
+    },
+    render: function() {
+        return <div className="range-question" style={{display: this.props.currentQuestion === this.props.id ? 'block' : 'none'}}>
+        <input className="q-email" type="email" name={this.props.name} autoComplete="email" autoFocus="autofocus" maxLength="255" minLength="4" placeholder="Email" onKeyDown={this.onDone}/>
+        </div>
+    }
+
+});
 var RangeQuestion = React.createClass({
     getInitialState: function() {
-        return { value: Math.floor((this.props.config.max -this.props.config.min)/2)};
+        return { value: Math.floor((this.props.config.max - this.props.config.min)/2)};
     },
     onInput: function(e) {
         this.setState({value: e.target.value});
         this.props.changeAnswer(this.props.name, e.target.value);
     },
     render: function() {
-        return <div className="range-question" style={{display: this.props.currentQuestion === this.props.id ? 'block' : 'none'}}>
+        return <div className="range-question" style={{ display: this.props.currentQuestion === this.props.id ? 'block' : 'none'}}>
         <h1>{this.props.text}</h1>
 
 
@@ -52,7 +75,7 @@ var RangeQuestion = React.createClass({
 
 var QUESTIONS = [
         {
-            "id": "0",
+            "id": 0,
             "text": "Email",
             "name": "email",
             "type": "email",
@@ -60,7 +83,7 @@ var QUESTIONS = [
             "config": {}
         },
         {
-        "id": 0,
+        "id": 1,
             "text": "Started studies",
             "name": "enrolled",
             "type": "range",
@@ -71,7 +94,7 @@ var QUESTIONS = [
             }
         },
         {
-            "id": 1,
+            "id": 2,
             "text": "Graduated",
             "name": "graduated",
             "type": "range",
@@ -82,7 +105,7 @@ var QUESTIONS = [
             }
         },
         {
-            "id": 2,
+            "id": 3,
             "text": "Birth year",
             "name": "birth",
             "type": "range",
@@ -93,7 +116,7 @@ var QUESTIONS = [
             }
         },
         {
-            "id": 3,
+            "id": 4,
             "text": "I am better at groupwork due to my studies at Aalto University.",
             "name": "groupwork",
             "type": "range",
