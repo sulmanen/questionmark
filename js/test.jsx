@@ -99,7 +99,7 @@ var RangeQuestion = React.createClass({
     },
     render: function() {
         return <div className="range-question" style={{ display: this.props.currentQuestion === this.props.id ? 'block' : 'none'}}>
-        <h1>{this.props.text}</h1>
+        <h1>{this.props.id + 1}. {this.props.text}</h1>
 
 
         <input className="q-range" type="range"
