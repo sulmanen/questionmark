@@ -2,8 +2,13 @@
   (:require [liberator.core :refer [resource defresource]]
             [compojure.core :refer [defroutes ANY]]
             [ring.middleware.params :refer [wrap-params]]
+            [clj-dbcp.core        :as cp]
+            [clj-liquibase.change :as ch]
+            [clj-liquibase.cli    :as cli]
             [clojure.java.io :as io]
-            [clojure.data.json :as json]))
+            [clojure.data.json :as json])
+  (:use
+    [clj-liquibase.core :only (defchangelog)]))
 
 (require '[yesql.core :refer [defquery]])
 
@@ -11,8 +16,31 @@
 (def db-spec {:classname "org.postgresql.Driver"
               :subprotocol "postgresql"
               :subname "//localhost:5432/survey"
-              :user "pepsi"
-              :password "pepsi"})
+              :user "sulmanen"
+              :password "pftvppeh"})
+
+;;liquibase
+(def ct-change1 (ch/create-table :answers
+                  [[:id     :int          :null false :pk true :autoinc true]
+                   [:email   [:varchar 255] :null false]
+                   [:enrolled :int :null true]
+                   [:gender :int :null true]
+                   [:groupwork :int :null true]
+                   [:birth :int :null true]
+                   [:sent :bigint :null false]
+                   ]))
+
+; recommended: one change per changeset
+(def changeset-1 ["id=1" "author=sulmanen" [ct-change1]])
+
+
+; you can add more changesets later to the changelog
+(defchangelog app-changelog "questionmark" [changeset-1])
+
+(def ds (cp/make-datasource (cp/parse-url "postgres://pepsi:pepsi@localhost:5432/survey")))
+
+;write changesets
+(apply cli/entry "update" {:datasource ds :changelog  app-changelog} [])
 
 ; Import the SQL query as a function.
 (defquery write-answer! "survey/write_answer.sql"

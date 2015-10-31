@@ -70,7 +70,17 @@ var Questionnaire = React.createClass({
                 return <RangeQuestion currentQuestion={this.state.currentQuestion} id={question.id} key={question.id} name={question.name} text={question.text} config={question.config} changeAnswer={this.changeAnswer} nextQuestion={this.nextQuestion}/>
             }
         }.bind(this));
-        return<div className={this.state.sending ? 'spinner q-groupwork': 'q-groupwork'}><div style={{ display: this.state.displayThankYou ? 'block' : 'none'}}><h1>Thank you!</h1> <div className="checkmark"></div></div>{questions}</div>;
+        return <div className={this.state.sending ? 'spinner q-groupwork': 'q-groupwork'}>
+        <div style={{ display: this.state.displayThankYou ? 'block' : 'none'}}>
+        <div className="checkmark"></div>
+        <h1>Thank you!</h1>
+        </div>
+        <section style={{ display: this.state.currentQuestion === 0 ? 'block' :'none'}}>
+        <h1>{this.props.intro.title}</h1>
+        <h3>{this.props.intro.text}</h3>
+        </section>
+        {questions}
+        </div>;
     }
 });
 
@@ -169,5 +179,8 @@ var QUESTIONS = [
             }
         }
 ];
-
-ReactDOM.render(<Questionnaire questions={QUESTIONS} />, document.getElementById('questions'));
+var INTRO = {
+    title: 'Welcome to the group work survey.',
+    text: 'Please enter your email to start. It is only used to identify aalto students.'
+}
+ReactDOM.render(<Questionnaire questions={QUESTIONS} intro={INTRO}/>, document.getElementById('questions'));

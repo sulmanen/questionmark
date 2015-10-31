@@ -9,6 +9,10 @@
                  [org.clojure/java.jdbc "0.4.2"]
                  [org.postgresql/postgresql "9.4-1203-jdbc42"]
                  [yesql "0.5.1"]
+                 [ring/ring-ssl "0.2.1"]
                  [liberator "0.13"]
                  [compojure "1.3.4"]
+                 [clj-dbcp      "0.8.1"]  ; to create connection-pooling DataSource
+                 [clj-liquibase "0.5.3"]  ; for this library
+                 [oss-jdbc      "0.8.0"]  ; for Open Source JDBC drivers
                  [ring/ring-core "1.2.1"]])
