@@ -1,19 +1,32 @@
 var gulp = require('gulp'),
     jshint = require('gulp-jshint'),
-    concat = require('gulp-concat'),
+    concat = require('gulp-continuous-concat'),
     uglify = require('gulp-uglify'),
     gzip = require('gulp-gzip'),
     babel = require('gulp-babel'),
-    rimraf = require('rimraf');
+    rimraf = require('rimraf'),
+    watch = require('gulp-watch'),
+    plumber = require('gulp-plumber'),
+    debug = require('gulp-debug'),
+    addsrc = require('gulp-add-src'),
 
+    files = [
+        './js/*.jsx',
+        './js/*.js'
+    ],
+    deps = [
+        './bower_components/react/react.js',
+        './bower_components/react/react-dom.js'
+    ];
 
 gulp.task('clean-scripts', function (cb) {
     return rimraf('./resources/public', cb);
 });
 
 gulp.task('deploy', function() {
-    gulp.src(['./js/*.jsx', './js/*.js'])
-    .pipe(babel())
+    gulp.src(files)
+        .pipe(babel())
+    .pipe(addsrc(deps))
     .pipe(concat('questionnaire.js'))
     .pipe(uglify())
     .pipe(gzip())
@@ -21,13 +34,15 @@ gulp.task('deploy', function() {
 });
 
 gulp.task('dev', function() {
-    gulp.src(['./bower_components/react/react.js',
-              './bower_components/react/react-dom.js',
-              './js/*.jsx',
-              './js/*.js'])
-    .pipe(babel())
-    .pipe(concat('questionmark.js'))
-    .pipe(gulp.dest('./resources/public'));
+    gulp.src(files)
+        .pipe(watch('js/*.jsx'))
+        .pipe(debug())
+        .pipe(babel())
+        .pipe(plumber())
+        .pipe(addsrc.prepend(deps))
+        .pipe(concat('questionmark.js'))
+        .pipe(debug())
+        .pipe(gulp.dest('./resources/public'));
 });
 
 gulp.task('lint', function () {
