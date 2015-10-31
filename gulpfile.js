@@ -9,7 +9,7 @@ var gulp = require('gulp'),
     plumber = require('gulp-plumber'),
     debug = require('gulp-debug'),
     addsrc = require('gulp-add-src'),
-    livereload = require('gulp-livereload');
+    livereload = require('gulp-livereload'),
 
     files = [
         './js/*.jsx',
