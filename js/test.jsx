@@ -6,11 +6,13 @@ var Questionnaire = React.createClass({
     changeAnswer: function(name, value) {
         var answers = this.state.answers;
         answers[name] = value;
+        window.clearTimeout(this.timeout);
+
+
         this.setState({ answers: answers, currentQuestion: this.state.currentQuestion, sending: this.state.sending, displayThankYou: this.stateDisplayThankYou });
 
         if (this.state.currentQuestion >= (this.props.questions.length - 1)) {
-            window.clearTimeout(this.timeout);
-            window.setTimeout(function() {
+            this.timeout = window.setTimeout(function() {
                 this.sendAnswers();
             }.bind(this), 1000);
         }
@@ -36,7 +38,7 @@ var Questionnaire = React.createClass({
         this.toggleSpinner(false);
     },
     sendAnswers: function() {
-        var request = new XMLHttpRequest();
+        var request = new XMLHttpRequest(), data;
         this.startSpinner();
         request.onreadystatechange = function() {
             if (request.readyState == XMLHttpRequest.DONE ) {
@@ -53,8 +55,9 @@ var Questionnaire = React.createClass({
         request.open("POST", "answers", true);
         request.setRequestHeader("Content-type", "application/json");
         request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-
-        request.send(JSON.stringify(this.state.answers));
+        data = this.state.answers;
+        data.sent = Date.now();
+        request.send(JSON.stringify(data));
     },
     render: function() {
         var questions = this.props.questions.map(function(question){

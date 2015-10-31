@@ -1,2 +1,2 @@
 -- Insert answer into the database
-INSERT INTO answers (email, enrolled, graduated, birth, groupwork) VALUES (:email , :enrolled, :graduated, :birth, :groupwork)
+INSERT INTO answers (email, enrolled, graduated, birth, groupwork, sent) VALUES (:email , :enrolled, :graduated, :birth, :groupwork, :sent)
