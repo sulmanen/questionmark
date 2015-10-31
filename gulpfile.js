@@ -9,6 +9,7 @@ var gulp = require('gulp'),
     plumber = require('gulp-plumber'),
     debug = require('gulp-debug'),
     addsrc = require('gulp-add-src'),
+    livereload = require('gulp-livereload');
 
     files = [
         './js/*.jsx',
@@ -42,7 +43,8 @@ gulp.task('dev', function() {
         .pipe(addsrc.prepend(deps))
         .pipe(concat('questionmark.js'))
         .pipe(debug())
-        .pipe(gulp.dest('./resources/public'));
+        .pipe(gulp.dest('./resources/public'))
+        .pipe(livereload({start: true}));
 });
 
 gulp.task('lint', function () {
