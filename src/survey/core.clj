@@ -21,13 +21,13 @@
 
 ;;liquibase
 (def ct-change1 (ch/create-table :answers
-                  [[:id     :int          :null false :pk true :autoinc true]
-                   [:email   [:varchar 255] :null false]
+                  [[:email   [:varchar 255] :null true :pk true]
                    [:enrolled :int :null true]
+                   [:graduated :int :null true]
                    [:gender :int :null true]
                    [:groupwork :int :null true]
                    [:birth :int :null true]
-                   [:sent :bigint :null false]
+                   [:sent :bigint :null true]
                    ]))
 
 ; recommended: one change per changeset
