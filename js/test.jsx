@@ -53,6 +53,7 @@ var Questionnaire = React.createClass({
                 if(request.status == 201){
                     this.stopSpinner();
                     this.sayThanks();
+                    localStorage.removeItem(STATE_KEY);
                 }
                 else {
                     alert('Oops!')
