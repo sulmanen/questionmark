@@ -16,8 +16,8 @@
 (def db-spec {:classname "org.postgresql.Driver"
               :subprotocol "postgresql"
               :subname "//localhost:5432/survey"
-              :user "sulmanen"
-              :password "pftvppeh"})
+              :user "pepsi"
+              :password "pepsi"})
 
 ;;liquibase
 (def ct-change1 (ch/create-table :answers
