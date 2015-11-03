@@ -1,13 +1,16 @@
+var STATE_KEY = 'tu2000survey';
+
 var Questionnaire = React.createClass({
     timeout: null,
     nextQuestion: function() {
-        this.setState({ answers: this.state.answers, currentQuestion: ++this.state.currentQuestion, sending: this.state.sending, displayThankYou: this.stateDisplayThankYou });
+        var state = { answers: this.state.answers, currentQuestion: ++this.state.currentQuestion, sending: this.state.sending, displayThankYou: this.stateDisplayThankYou };
+        localStorage.setItem(STATE_KEY, JSON.stringify(state));
+        this.setState(state);
     },
     changeAnswer: function(name, value) {
         var answers = this.state.answers;
         answers[name] = value;
         window.clearTimeout(this.timeout);
-
 
         this.setState({ answers: answers, currentQuestion: this.state.currentQuestion, sending: this.state.sending, displayThankYou: this.stateDisplayThankYou });
 
@@ -21,12 +24,17 @@ var Questionnaire = React.createClass({
         this.setState({ answers: this.state.answers, currentQuestion: this.state.currentQuestion, sending: this.state.sending, displayThankYou: true });
     },
     getInitialState: function() {
-        return {
-            answers: {},
-            currentQuestion: 0,
-            sending: false,
-            displayThankYou: false
-        };
+        var savedState = localStorage.getItem(STATE_KEY);
+        if (savedState) {
+            return JSON.parse(savedState);
+        } else {
+            return {
+                answers: {},
+                currentQuestion: 0,
+                sending: false,
+                displayThankYou: false
+            };
+        }
     },
     toggleSpinner: function(isSending) {
         this.setState({ answers: this.state.answers, currentQuestion: this.state.currentQuestion, sending: isSending, displayThankYou: this.state.displayThankYou});
