@@ -95,18 +95,27 @@ var Questionnaire = React.createClass({
 
 var EmailQuestion = React.createClass({
     getInitialState: function() {
-        return { value: ''};
+        return { value: '', error: false};
     },
     onDone: function(e) {
+
         if (e.keyCode === 13) {
-            this.setState({ value: e.target.value });
-            this.props.changeAnswer(this.props.name, e.target.value);
-            this.props.nextQuestion();
+            if (e.target.checkValidity()) {
+                this.setState({ value: e.target.value });
+                this.props.changeAnswer(this.props.name, e.target.value);
+                this.props.nextQuestion();
+            } else {
+                this.setState({ value: this.state.value, error: true });
+            }
+        } else {
+            this.setState({ value: this.state.value, error: false });
         }
+
     },
     render: function() {
         return <div className="range-question" style={{display: this.props.currentQuestion === this.props.id ? 'block' : 'none'}}>
-        <input className="q-email" type="email" name={this.props.name} autoComplete="email" autoFocus="autofocus" maxLength="255" minLength="4" placeholder="Email" onKeyDown={this.onDone}/>
+        <input className={this.state.error ? 'submitted q-email': 'q-email'} type="email" name={this.props.name} autoComplete="email" autoFocus="autofocus" maxLength="255" minLength="4" placeholder="Email" onKeyDown={this.onDone}/>
+        <small className="q-email-error" style={{display: this.state.error ? 'block' : 'none'}}>Bogus email. Try harder.</small>
         </div>
     }
 
