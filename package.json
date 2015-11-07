@@ -5,7 +5,7 @@
   "main": " ",
     "scripts": {
         "build": "npm install .",
-        "start": "/app/node_modules/gulp/bin/gulp.js deploy",
+        "start": "node_modules/gulp/bin/gulp.js deploy",
         "test": " "
     },
   "repository": {
