@@ -12,5 +12,5 @@ pom.xml.asc
 *node_modules
 *bower_components
 *~
-#*
+*#*
 resources/public
