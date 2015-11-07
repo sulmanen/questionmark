@@ -4,8 +4,7 @@
   "description": "group work",
   "main": " ",
     "scripts": {
-        "build":"gulp deploy",
-        "start": "",
+        "start": "gulp deploy",
         "test": " "
     },
   "repository": {
