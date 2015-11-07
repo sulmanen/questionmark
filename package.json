@@ -4,6 +4,7 @@
   "description": "group work",
   "main": " ",
     "scripts": {
+        "install":"npm install ."
         "start": "node_modules/gulp/bin/gulp.js deploy",
         "test": " "
     },
