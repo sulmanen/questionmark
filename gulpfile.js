@@ -28,10 +28,10 @@ gulp.task('deploy', function() {
     gulp.src(files)
         .pipe(babel())
     .pipe(addsrc(deps))
-    .pipe(concat('questionnaire.js'))
+    .pipe(concat('questionmark.js'))
     .pipe(uglify())
     .pipe(gzip())
-    .pipe(gulp.dest('./public/scripts'));
+    .pipe(gulp.dest('./resources/public'));
 });
 
 gulp.task('dev', function() {

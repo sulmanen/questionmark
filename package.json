@@ -3,9 +3,11 @@
   "version": "0.0.1",
   "description": "group work",
   "main": " ",
-  "scripts": {
-    "test": " "
-  },
+    "scripts": {
+        "build":"gulp deploy",
+        "start": "",
+        "test": " "
+    },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sulmanen/questionmark.git"
