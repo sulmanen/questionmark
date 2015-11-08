@@ -8,9 +8,11 @@
             [clj-liquibase.change :as ch]
             [clj-liquibase.cli    :as cli]
             [clojure.java.io :as io]
-            [clojure.data.json :as json])
+            [clojure.data.json :as json]
+            [ring.adapter.jetty :as jetty])
   (:use
-    [clj-liquibase.core :only (defchangelog)]))
+   [clj-liquibase.core :only (defchangelog)])
+  (:gen-class))
 
 (require '[yesql.core :refer [defquery]])
 
@@ -85,7 +87,9 @@
                                           :handle-ok (slurp "resources/aalto.svg")))
   )
 
-
 (def handler
   (-> app
       wrap-params))
+
+(defn -main []
+  (jetty/run-jetty handler {:port 3000}))
