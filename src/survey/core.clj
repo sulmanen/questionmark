@@ -2,6 +2,8 @@
   (:require [liberator.core :refer [resource defresource]]
             [compojure.core :refer [defroutes ANY]]
             [ring.middleware.params :refer [wrap-params]]
+            [liberator.representation :refer [ring-response]]
+            [clojure.java.io :refer [input-stream]]
             [clj-dbcp.core        :as cp]
             [clj-liquibase.change :as ch]
             [clj-liquibase.cli    :as cli]
@@ -78,9 +80,9 @@
   (ANY "/" [] (resource :available-media-types ["text/html"]
                         :handle-ok (slurp "resources/index.html")))
   (ANY "/js/questionmark.js" [] (resource :available-media-types ["text/html"]
-                                          :handle-ok (slurp "resources/public/questionmark.js")))
+                                          :handle-ok (ring-response {:headers {"Content-Encoding" "gzip"} :body (input-stream "resources/public/questionmark.js.gz")})))
   (ANY "/aalto.svg" [] (resource :available-media-types ["image/svg+xml"]
-                                          :handle-ok (slurp "resources/public/aalto.svg")))
+                                          :handle-ok (slurp "resources/aalto.svg")))
   )
 
 
