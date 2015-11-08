@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     jshint = require('gulp-jshint'),
     concat = require('gulp-continuous-concat'),
+    concatOnce = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     gzip = require('gulp-gzip'),
     babel = require('gulp-babel'),
@@ -27,11 +28,12 @@ gulp.task('clean-scripts', function (cb) {
 gulp.task('deploy', function() {
     gulp.src(files)
         .pipe(babel())
-    .pipe(addsrc(deps))
-    .pipe(concat('questionmark.js'))
-    .pipe(uglify())
-    .pipe(gzip())
-    .pipe(gulp.dest('./resources/public'));
+        .pipe(addsrc.prepend(deps))
+        .pipe(concatOnce('questionmark.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('./resources/public'))
+        .pipe(gzip({ append: true }))
+        .pipe(gulp.dest('./resources/public'));
 });
 
 gulp.task('dev', function() {
