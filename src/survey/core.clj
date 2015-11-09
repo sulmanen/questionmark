@@ -8,8 +8,7 @@
             [clj-liquibase.change :as ch]
             [clj-liquibase.cli    :as cli]
             [clojure.java.io :as io]
-            [clojure.data.json :as json]
-            [ring.adapter.jetty :as jetty])
+            [clojure.data.json :as json])
   (:use
    [clj-liquibase.core :only (defchangelog)])
   (:gen-class))
@@ -90,6 +89,3 @@
 (def handler
   (-> app
       wrap-params))
-
-(defn -main []
-  (jetty/run-jetty handler {:port 3000}))
