@@ -11,6 +11,7 @@
             [clojure.java.io :as io]
             [clojure.data.json :as json]
             [clojure.string :refer [join]]
+            [ring.adapter.jetty :as jetty]
             [environ.core :refer [env]])
   (:use
    [clj-liquibase.core :only (defchangelog)])
@@ -103,3 +104,6 @@
 (def handler
   (-> app
       wrap-params))
+
+(defn -main []
+  (jetty/run-jetty app {:port 3000}))
