@@ -106,4 +106,4 @@
       wrap-params))
 
 (defn -main []
-  (jetty/run-jetty app {:port 3000}))
+  (jetty/run-jetty app {:port (or (env :port) 3000)}))
