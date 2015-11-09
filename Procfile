@@ -1,1 +1,1 @@
-web: java -jar target/survey.jar survey.core
+web: java -cp target/survey.jar survey.core
