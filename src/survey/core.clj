@@ -19,6 +19,9 @@
 
 (require '[yesql.core :refer [defquery]])
 
+(defn parse-int [s]
+  (Integer. (re-find #"[0-9]*" s)))
+
 (def db-url (or (env :database-url)
                 "postgres://sulmanen:pftvppeh@localhost:5432/survey"))
 
@@ -106,4 +109,4 @@
       wrap-params))
 
 (defn -main []
-  (jetty/run-jetty app {:port (or (env :port) 3000)}))
+  (jetty/run-jetty app {:port (parse-int (env :port "3000"))}))
