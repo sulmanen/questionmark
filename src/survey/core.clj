@@ -4,23 +4,37 @@
             [ring.middleware.params :refer [wrap-params]]
             [liberator.representation :refer [ring-response]]
             [clojure.java.io :refer [input-stream]]
+            [uri.core :refer [uri->map make]]
             [clj-dbcp.core        :as cp]
             [clj-liquibase.change :as ch]
             [clj-liquibase.cli    :as cli]
             [clojure.java.io :as io]
-            [clojure.data.json :as json])
+            [clojure.data.json :as json]
+            [clojure.string :refer [join]]
+            [environ.core :refer [env]])
   (:use
    [clj-liquibase.core :only (defchangelog)])
   (:gen-class))
 
 (require '[yesql.core :refer [defquery]])
 
+(def db-url (or (env :database-url)
+                "postgres://sulmanen:pftvppeh@localhost:5432/survey"))
+
 ; Define a database connection spec. (This is standard clojure.java.jdbc.)
 (def db-spec {:classname "org.postgresql.Driver"
               :subprotocol "postgresql"
-              :subname "//localhost:5432/survey"
-              :user "pepsi"
-              :password "pepsi"})
+              :subname (join "" ["//"
+                                 (get-in (uri->map (make db-url)) [:host] "localhost")
+                                 ":"
+                                 (get-in (uri->map (make db-url)) [:port] "5432")
+                                 (get-in (uri->map (make db-url)) [:path] "/survey")])
+              :user (get-in (uri->map (make db-url))
+                            [:username]
+                            "sulmanen")
+              :password (get-in (uri->map (make db-url))
+                                [:password]
+                                "pftvppeh") })
 
 ;;liquibase
 (def ct-change1 (ch/create-table :answers
@@ -40,7 +54,7 @@
 ; you can add more changesets later to the changelog
 (defchangelog app-changelog "questionmark" [changeset-1])
 
-(def ds (cp/make-datasource (cp/parse-url "postgres://pepsi:pepsi@localhost:5432/survey")))
+(def ds (cp/make-datasource (cp/parse-url db-url)))
 
 ;write changesets
 (apply cli/entry "update" {:datasource ds :changelog  app-changelog} [])

@@ -15,6 +15,8 @@
                  [yesql "0.5.1"]
                  [liberator "0.13"]
                  [compojure "1.3.4"]
+                 [environ "0.5.0"]
+                 [uri "1.1.0"]
                  [clj-dbcp      "0.8.1"]  ; to create connection-pooling DataSource
                  [clj-liquibase "0.5.3"]  ; for this library
                  [oss-jdbc      "0.8.0"]  ; for Open Source JDBC drivers
