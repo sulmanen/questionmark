@@ -10,7 +10,7 @@
             [clj-liquibase.cli    :as cli]
             [clojure.java.io :as io]
             [clojure.data.json :as json]
-            [clojure.string :refer [join]]
+            [clojure.string :refer [join split]]
             [ring.adapter.jetty :as jetty]
             [environ.core :refer [env]])
   (:use
@@ -25,6 +25,7 @@
 (def db-url (or (env :database-url)
                 "postgres://sulmanen:pftvppeh@localhost:5432/survey"))
 
+
 ; Define a database connection spec. (This is standard clojure.java.jdbc.)
 (def db-spec {:classname "org.postgresql.Driver"
               :subprotocol "postgresql"
@@ -33,12 +34,16 @@
                                  ":"
                                  (get-in (uri->map (make db-url)) [:port] "5432")
                                  (get-in (uri->map (make db-url)) [:path] "/survey")])
-              :user (get-in (uri->map (make db-url))
-                            [:username]
-                            "sulmanen")
-              :password (get-in (uri->map (make db-url))
-                                [:password]
-                                "pftvppeh") })
+              :user (get (split (get-in (uri->map (make db-url))
+                                        [:user-info]
+                                        "sulmanen:pftvppeh")
+                                #":")
+                         0)
+              :password (get (split (get-in (uri->map (make db-url))
+                                            [:user-info]
+                                            "sulmanen:pftvppeh")
+                                    #":")
+                             1)})
 
 ;;liquibase
 (def ct-change1 (ch/create-table :answers
