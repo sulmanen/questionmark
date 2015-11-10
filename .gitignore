@@ -13,3 +13,4 @@ pom.xml.asc
 *bower_components
 *~
 *#*
+derby.log
