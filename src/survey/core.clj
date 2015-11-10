@@ -23,7 +23,7 @@
   (Integer. (re-find #"[0-9]*" s)))
 
 (def db-url (or (env :database-url)
-                "postgres://sulmanen:pftvppeh@localhost:5432/survey"))
+                "postgres://pepsi:pepsi@localhost:5432/survey"))
 
 
 ; Define a database connection spec. (This is standard clojure.java.jdbc.)
@@ -36,12 +36,12 @@
                                  (get-in (uri->map (make db-url)) [:path] "/survey")])
               :user (get (split (get-in (uri->map (make db-url))
                                         [:user-info]
-                                        "sulmanen:pftvppeh")
+                                        "pepsi:pepsi")
                                 #":")
                          0)
               :password (get (split (get-in (uri->map (make db-url))
                                             [:user-info]
-                                            "sulmanen:pftvppeh")
+                                            "pepsi:pepsi")
                                     #":")
                              1)})
 
