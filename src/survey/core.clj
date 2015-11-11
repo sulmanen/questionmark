@@ -54,7 +54,9 @@
                    [:groupwork :int :null true]
                    [:birth :int :null true]
                    [:sent :bigint :null true]
-                   [:important :int :null true]
+                   ]))
+(def ct-change2 (ch/add-columns :answers
+                  [[:important :int :null true]
                    [:toomany :int :null true]
                    [:helps_me :int :null true]
                    [:trouble :int :null true]
@@ -63,12 +65,11 @@
                    [:solve_conflicts :int :null true]
                    [:fair :int :null true]
                    [:improving :int :null true]
-                   [:nps :int :null true]
-                   ]))
+                   [:nps :int :null true]]))
 
 ; recommended: one change per changeset
 (def changeset-1 ["id=1" "author=sulmanen" [ct-change1]])
-
+(def changeset-2 ["id=2" "author=sulmanen" [ct-change2]])
 
 ; you can add more changesets later to the changelog
 (defchangelog app-changelog "questionmark" [changeset-1])
