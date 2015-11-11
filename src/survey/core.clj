@@ -72,7 +72,7 @@
 (def changeset-2 ["id=2" "author=sulmanen" [ct-change2]])
 
 ; you can add more changesets later to the changelog
-(defchangelog app-changelog "questionmark" [changeset-1])
+(defchangelog app-changelog "questionmark" [changeset-1 changeset-2])
 
 (def ds (cp/make-datasource (cp/parse-url db-url)))
 
