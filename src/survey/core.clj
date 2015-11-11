@@ -54,6 +54,16 @@
                    [:groupwork :int :null true]
                    [:birth :int :null true]
                    [:sent :bigint :null true]
+                   [:important :int :null true]
+                   [:toomany :int :null true]
+                   [:helps_me :int :null true]
+                   [:trouble :int :null true]
+                   [:support :int :null true]
+                   [:conflicts :int :null true]
+                   [:solve_conflicts :int :null true]
+                   [:fair :int :null true]
+                   [:improving :int :null true]
+                   [:nps :int :null true]
                    ]))
 
 ; recommended: one change per changeset
