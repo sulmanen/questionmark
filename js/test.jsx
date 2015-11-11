@@ -195,7 +195,107 @@ var QUESTIONS = [
                 "min": 1,
                 "max": 10
             }
-        }
+        },
+     {
+            "id": 5,
+            "text": "Group work skills are important to me.",
+            "name": "important",
+            "type": "range",
+            "config" :{
+                "min": 1,
+                "max": 10
+            }
+     },
+    {
+            "id": 6,
+            "text": "There are too many groupwork assigments at Aalto University",
+            "name": "toomany",
+            "type": "range",
+            "config" :{
+                "min": 1,
+                "max": 10
+            }
+    },
+    {
+            "id": 7,
+            "text": "Group work helps me learn better.",
+            "name": "helps_me",
+            "type": "range",
+            "config" :{
+                "min": 1,
+                "max": 10
+            }
+    },
+    {
+            "id": 8,
+            "text": "I have trouble forming a group for an assigment.",
+            "name": "trouble",
+            "type": "range",
+            "config" :{
+                "min": 1,
+                "max": 10
+            }
+    },
+    {
+            "id": 9,
+            "text": "Our group gets enough support from our teacher during group work.",
+            "name": "support",
+            "type": "range",
+            "config" :{
+                "min": 1,
+                "max": 10
+            }
+    },
+    {
+            "id": 10,
+            "text": "I run into conflicts in group work at Aalto.",
+            "name": "conflicts",
+            "type": "range",
+            "config" :{
+                "min": 1,
+                "max": 10
+            }
+    },
+    {
+            "id": 11,
+            "text": "I am able to solve conflics in my group work.",
+            "name": "solve_conflicts",
+            "type": "range",
+            "config" :{
+                "min": 1,
+                "max": 10
+            }
+    },
+    {
+            "id": 12,
+            "text": "Grading of group work is fair.",
+            "name": "fair",
+            "type": "range",
+            "config" :{
+                "min": 1,
+                "max": 10
+            }
+    },
+    {
+            "id": 13,
+            "text": "My group work skills are improving at Aalto Universtiy.",
+            "name": "improving",
+            "type": "range",
+            "config" :{
+                "min": 1,
+                "max": 10
+            }
+    },
+     {
+            "id": 14,
+            "text": "I would recommend Aalto University to a friend based on my experiences with group work here.",
+            "name": "nps",
+            "type": "range",
+            "config" :{
+                "min": 1,
+                "max": 10
+            }
+    }
 ];
 var INTRO = {
     title: 'Welcome to the group work survey.',
