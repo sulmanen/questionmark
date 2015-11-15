@@ -131,14 +131,15 @@ var RangeQuestion = React.createClass({
         return <div className="range-question" style={{ display: this.props.currentQuestion === this.props.id ? 'block' : 'none'}}>
         <h1>{this.props.id + 1}. {this.props.text}</h1>
 
-
+        <div className="q-range-value">{this.state.value}</div>
         <input className="q-range" type="range"
         onInput={this.onInput}
         onMouseUp={this.props.nextQuestion}
         min={this.props.config.min} max={this.props.config.max}
         step={this.props.config.step}/>
+        <div className="q-range-min">{this.props.config.minText}</div>
+        <div className="q-range-max">{this.props.config.maxText}</div>
 
-        <div className="q-range-value">{this.state.value}</div>
         </div>
     }
 });
@@ -192,7 +193,9 @@ var QUESTIONS = [
             "type": "range",
             "config" :{
                 "min": 1,
-                "max": 10
+                "max": 10,
+                "minText": "Disagree",
+                "maxText": "Agree"
             }
         },
      {
@@ -202,7 +205,9 @@ var QUESTIONS = [
             "type": "range",
             "config" :{
                 "min": 1,
-                "max": 10
+                "max": 10,
+                "minText": "Disagree",
+                "maxText": "Agree"
             }
      },
     {
@@ -212,7 +217,9 @@ var QUESTIONS = [
             "type": "range",
             "config" :{
                 "min": 1,
-                "max": 10
+                "max": 10,
+                "minText": "Disagree",
+                "maxText": "Agree"
             }
     },
     {
@@ -222,7 +229,9 @@ var QUESTIONS = [
             "type": "range",
             "config" :{
                 "min": 1,
-                "max": 10
+                "max": 10,
+                "minText": "Disagree",
+                "maxText": "Agree"
             }
     },
     {
@@ -232,7 +241,9 @@ var QUESTIONS = [
             "type": "range",
             "config" :{
                 "min": 1,
-                "max": 10
+                "max": 10,
+                "minText": "Disagree",
+                "maxText": "Agree"
             }
     },
     {
@@ -242,7 +253,9 @@ var QUESTIONS = [
             "type": "range",
             "config" :{
                 "min": 1,
-                "max": 10
+                "max": 10,
+                "minText": "Disagree",
+                "maxText": "Agree"
             }
     },
     {
@@ -252,7 +265,9 @@ var QUESTIONS = [
             "type": "range",
             "config" :{
                 "min": 1,
-                "max": 10
+                "max": 10,
+                "minText": "Disagree",
+                "maxText": "Agree"
             }
     },
     {
@@ -262,7 +277,9 @@ var QUESTIONS = [
             "type": "range",
             "config" :{
                 "min": 1,
-                "max": 10
+                "max": 10,
+                "minText": "Disagree",
+                "maxText": "Agree"
             }
     },
     {
@@ -272,7 +289,9 @@ var QUESTIONS = [
             "type": "range",
             "config" :{
                 "min": 1,
-                "max": 10
+                "max": 10,
+                "minText": "Disagree",
+                "maxText": "Agree"
             }
     },
     {
@@ -282,7 +301,9 @@ var QUESTIONS = [
             "type": "range",
             "config" :{
                 "min": 1,
-                "max": 10
+                "max": 10,
+                "minText": "Disagree",
+                "maxText": "Agree"
             }
     },
      {
@@ -292,7 +313,9 @@ var QUESTIONS = [
             "type": "range",
             "config" :{
                 "min": 1,
-                "max": 10
+                "max": 10,
+                "minText": "Disagree",
+                "maxText": "Agree"
             }
     }
 ];

@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
     <style>
+      html {
+      box-sizing: border-box;
+      }
+      *, *:before, *:after {
+      box-sizing: inherit;
+      }
       .q-email-error {
       color: #FF9494;
       margin-top: 10px;
@@ -17,6 +23,17 @@
       }
       .q-range {
       width: 100%;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      }
+      .q-range-min {
+      float: left;
+      margin-top: 0.5em;
+      }
+      .q-range-max {
+      margin-top: 0.5em;
+      float: right;
       }
       body {
       font-family: 'Droid Sans';
@@ -54,8 +71,9 @@
 
       .q-groupwork {
       position: absolute;
-      width: 100%;
+      width: 95%;
       top: 38%;
+      left: 2%;
       }
 
       .range-question{
