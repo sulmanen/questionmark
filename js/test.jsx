@@ -90,6 +90,7 @@ var Questionnaire = React.createClass({
                 }
                 else {
                     this.showError();
+                    localStorage.removeItem(STATE_KEY);
                 }
             }
         }.bind(this);

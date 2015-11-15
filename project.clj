@@ -12,6 +12,7 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/java.jdbc "0.4.2"]
                  [org.postgresql/postgresql "9.4-1203-jdbc42"]
+                 [cheshire "5.5.0"]
                  [yesql "0.5.1"]
                  [liberator "0.13"]
                  [compojure "1.3.4"]

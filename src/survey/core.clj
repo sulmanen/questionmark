@@ -12,7 +12,9 @@
             [clojure.data.json :as json]
             [clojure.string :refer [join split]]
             [ring.adapter.jetty :as jetty]
-            [environ.core :refer [env]])
+            [environ.core :refer [env]]
+            [cheshire.core :refer :all]
+            )
   (:use
    [clj-liquibase.core :only (defchangelog)])
   (:gen-class))
@@ -83,6 +85,10 @@
 (defquery write-answer! "survey/write_answer.sql"
   {:connection db-spec})
 
+(defquery update-answer! "survey/update_answer.sql"
+  {:connection db-spec})
+
+
 (defquery read-answer "survey/read_answer.sql"
   {:connection db-spec})
 
@@ -111,11 +117,11 @@
       :available-media-types ["application/json"]
       :handle-ok (read-answer)
       :post! (fn [ctx]
-               (try
-                 (write-answer! (parse-json ctx))
-                 (catch Exception e
-                   (.printStackTrace e)
-                   (json/read-str {:error (.getMessage e)} :key-fn keyword))))))
+               (if-let [body (body-as-string ctx)]
+                 (try
+                   (write-answer! (parse-string body true))
+                   (catch Exception e
+                     (update-answer! (parse-string body true))))))))
   (ANY "/" [] (resource :available-media-types ["text/html"]
                         :handle-ok (slurp "resources/index.html")))
   (ANY "/js/questionmark.js" [] (resource :available-media-types ["text/html"]
