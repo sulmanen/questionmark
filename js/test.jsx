@@ -160,7 +160,7 @@ var QUESTIONS = [
             "name": "enrolled",
             "type": "range",
             "config": {
-                "min": 1960,
+                "min": 1980,
                 "max": 2015,
                 "step": 1
             }
@@ -171,7 +171,7 @@ var QUESTIONS = [
             "name": "graduated",
             "type": "range",
             "config": {
-                "min": 1970,
+                "min": 1980,
                 "max": 2015,
                 "step": 1
             }
@@ -182,7 +182,7 @@ var QUESTIONS = [
             "name": "birth",
             "type": "range",
             "config": {
-                "min": 1940,
+                "min": 1970,
                 "max": 2000,
                 "step": 1
             }
