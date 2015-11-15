@@ -192,6 +192,8 @@ var RangeQuestion = React.createClass({
         onInput={this.onInput}
         onMouseDown={this.onInput}
         onMouseUp={this.props.nextQuestion}
+        onTouchStart={this.onInput}
+        onTouchEnd={this.props.nextQuestion}
         min={this.props.config.min} max={this.props.config.max}
         step={this.props.config.step}/>
         <div className="q-range-min"><small>{this.props.config.min}</small> {this.props.config.minText}</div>
