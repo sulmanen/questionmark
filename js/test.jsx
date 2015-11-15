@@ -6,6 +6,11 @@ var Questionnaire = React.createClass({
         var state = { answers: this.state.answers, currentQuestion: ++this.state.currentQuestion, sending: this.state.sending, displayThankYou: this.stateDisplayThankYou };
         localStorage.setItem(STATE_KEY, JSON.stringify(state));
         this.setState(state);
+        if (this.state.currentQuestion === this.props.questions.length) {
+            this.timeout = window.setTimeout(function() {
+                this.sendAnswers();
+            }.bind(this), 0);
+        }
     },
     changeAnswer: function(name, value) {
         var answers = this.state.answers;
@@ -13,12 +18,6 @@ var Questionnaire = React.createClass({
         window.clearTimeout(this.timeout);
 
         this.setState({ answers: answers, currentQuestion: this.state.currentQuestion, sending: this.state.sending, displayThankYou: this.stateDisplayThankYou });
-
-        if (this.state.currentQuestion >= (this.props.questions.length - 1)) {
-            this.timeout = window.setTimeout(function() {
-                this.sendAnswers();
-            }.bind(this), 1000);
-        }
     },
     sayThanks: function() {
         this.setState({ answers: this.state.answers, currentQuestion: this.state.currentQuestion, sending: this.state.sending, displayThankYou: true });
