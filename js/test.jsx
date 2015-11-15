@@ -3,7 +3,14 @@ var STATE_KEY = 'tu2000survey';
 var Questionnaire = React.createClass({
     timeout: null,
     nextQuestion: function() {
-        var state = { answers: this.state.answers, currentQuestion: ++this.state.currentQuestion, sending: this.state.sending, displayThankYou: this.stateDisplayThankYou };
+        var state = {
+            answers: this.state.answers,
+            currentQuestion: ++this.state.currentQuestion,
+            sending: this.state.sending,
+            displayThankYou: this.stateDisplayThankYou,
+            displayError: false
+        };
+
         localStorage.setItem(STATE_KEY, JSON.stringify(state));
         this.setState(state);
         if (this.state.currentQuestion === this.props.questions.length) {
@@ -17,10 +24,31 @@ var Questionnaire = React.createClass({
         answers[name] = value;
         window.clearTimeout(this.timeout);
 
-        this.setState({ answers: answers, currentQuestion: this.state.currentQuestion, sending: this.state.sending, displayThankYou: this.stateDisplayThankYou });
+        this.setState({
+            answers: answers,
+            currentQuestion: this.state.currentQuestion,
+            sending: this.state.sending,
+            displayThankYou: this.stateDisplayThankYou,
+            displayError: false
+        });
+    },
+    showError: function() {
+        this.setState({
+            answers: this.state.answers,
+            currentQuestion: this.state.currentQuestion,
+            sending: false,
+            displayThankYou: this.state.displayThankYou,
+            displayError: true
+        });
     },
     sayThanks: function() {
-        this.setState({ answers: this.state.answers, currentQuestion: this.state.currentQuestion, sending: this.state.sending, displayThankYou: true });
+        this.setState({
+            answers: this.state.answers,
+            currentQuestion: this.state.currentQuestion,
+            sending: this.state.sending,
+            displayThankYou: true,
+            displayError: false
+        });
     },
     getInitialState: function() {
         var savedState = localStorage.getItem(STATE_KEY);
@@ -31,12 +59,18 @@ var Questionnaire = React.createClass({
                 answers: {},
                 currentQuestion: 0,
                 sending: false,
-                displayThankYou: false
+                displayThankYou: false,
+                displayError: false
             };
         }
     },
     toggleSpinner: function(isSending) {
-        this.setState({ answers: this.state.answers, currentQuestion: this.state.currentQuestion, sending: isSending, displayThankYou: this.state.displayThankYou});
+        this.setState({
+            answers: this.state.answers,
+            currentQuestion: this.state.currentQuestion,
+            sending: isSending,
+            displayThankYou: this.state.displayThankYou
+        });
     },
     startSpinner: function() {
         this.toggleSpinner(true);
@@ -55,7 +89,7 @@ var Questionnaire = React.createClass({
                     localStorage.removeItem(STATE_KEY);
                 }
                 else {
-                    alert('Oops!')
+                    this.showError();
                 }
             }
         }.bind(this);
@@ -82,6 +116,10 @@ var Questionnaire = React.createClass({
         <div style={{ display: this.state.displayThankYou ? 'block' : 'none'}}>
         <div className="checkmark"></div>
         <h1>Thank you!</h1>
+        </div>
+        <div style={{ display: this.state.displayError ? 'block' : 'none'}}>
+        <div  className="q-error">X</div>
+        <h1>Oops. We messed up!</h1>
         </div>
         <section style={{ display: this.state.currentQuestion === 0 ? 'block' :'none'}}>
         <h1>{this.props.intro.title}</h1>

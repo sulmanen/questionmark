@@ -111,7 +111,11 @@
       :available-media-types ["application/json"]
       :handle-ok (read-answer)
       :post! (fn [ctx]
-               (write-answer! (parse-json ctx)))))
+               (try
+                 (write-answer! (parse-json ctx))
+                 (catch Exception e
+                   (.printStackTrace e)
+                   {:error (.getMessage e)})))))
   (ANY "/" [] (resource :available-media-types ["text/html"]
                         :handle-ok (slurp "resources/index.html")))
   (ANY "/js/questionmark.js" [] (resource :available-media-types ["text/html"]
