@@ -117,7 +117,9 @@
   (ANY "/js/questionmark.js" [] (resource :available-media-types ["text/html"]
                                           :handle-ok (ring-response {:headers {"Content-Encoding" "gzip"} :body (input-stream "resources/public/questionmark.js.gz")})))
   (ANY "/aalto.svg" [] (resource :available-media-types ["image/svg+xml"]
-                                          :handle-ok (slurp "resources/aalto.svg")))
+                                 :handle-ok (slurp "resources/aalto.svg")))
+  (ANY "/favicon.ico" [] (resource :available-media-types ["image/x-icon"]
+                                          :handle-ok (ring-response {:body (input-stream "resources/favicon.ico")})))
   )
 
 (def handler
