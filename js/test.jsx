@@ -115,7 +115,7 @@ var Questionnaire = React.createClass({
         }.bind(this));
 
         var bubbles = this.props.questions.map(function(question) {
-            if (this.state.currentQuestion === question.id) {
+            if (this.state.currentQuestion >= question.id) {
                 return <div key={question.id} className="q-bubble q-active"> </div>
             } else {
                 return <div key={question.id} className="q-bubble"></div>
