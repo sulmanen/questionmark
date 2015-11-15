@@ -1,0 +1,1 @@
+UPDATE answers SET enrolled = :enrolled, graduated = :graduated, birth = :birth, groupwork = :groupwork, sent = :sent, important = :important, toomany = :toomany, helps_me = :helps_me, trouble = :trouble, support = :support, conflicts = :conflicts, solve_conflicts = :solve_conflicts, fair = :fair, improving = :improving, nps = :nps WHERE email = :email
