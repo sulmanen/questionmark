@@ -115,7 +115,7 @@
                  (write-answer! (parse-json ctx))
                  (catch Exception e
                    (.printStackTrace e)
-                   {:error (.getMessage e)})))))
+                   (json/read-str {:error (.getMessage e)} :key-fn keyword))))))
   (ANY "/" [] (resource :available-media-types ["text/html"]
                         :handle-ok (slurp "resources/index.html")))
   (ANY "/js/questionmark.js" [] (resource :available-media-types ["text/html"]
