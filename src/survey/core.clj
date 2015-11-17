@@ -131,7 +131,7 @@
   (ANY "/aalto.svg" [] (resource :available-media-types ["image/svg+xml"]
                                  :handle-ok (slurp "resources/aalto.svg")))
   (ANY "/aalto.png" [] (resource :available-media-types ["image/png"]
-                                          :handle-ok (ring-response {:body (input-stream "resources/aalto.png")})))
+                                          :handle-ok (ring-response {:body (input-stream "resources/aaltosmall.png")})))
   (ANY "/favicon.ico" [] (resource :available-media-types ["image/x-icon"]
                                           :handle-ok (ring-response {:body (input-stream "resources/favicon.ico")})))
   )
