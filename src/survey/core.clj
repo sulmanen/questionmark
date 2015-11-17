@@ -68,13 +68,15 @@
                    [:fair :int :null true]
                    [:improving :int :null true]
                    [:nps :int :null true]]))
+(def ct-change3 (ch/add-columns :answers [[:exchange :int :null true]]))
 
 ; recommended: one change per changeset
 (def changeset-1 ["id=1" "author=sulmanen" [ct-change1]])
 (def changeset-2 ["id=2" "author=sulmanen" [ct-change2]])
+(def changeset-3 ["id=3" "author=sulmanen" [ct-change3]])
 
 ; you can add more changesets later to the changelog
-(defchangelog app-changelog "questionmark" [changeset-1 changeset-2])
+(defchangelog app-changelog "questionmark" [changeset-1 changeset-2 changeset-3])
 
 (def ds (cp/make-datasource (cp/parse-url db-url)))
 

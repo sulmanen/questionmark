@@ -176,7 +176,7 @@ var EmailQuestion = React.createClass({
 });
 var RangeQuestion = React.createClass({
     getInitialState: function() {
-        return { value: Math.floor((this.props.config.max - this.props.config.min)/2) + this.props.config.min };
+        return this.props.config.max === 1 ? {value: 1} : { value: Math.floor((this.props.config.max - this.props.config.min)/2) + this.props.config.min };
     },
     onInput: function(e) {
         this.setState({value: e.target.value});
@@ -213,7 +213,19 @@ var QUESTIONS = [
             "config": {}
         },
         {
-        "id": 1,
+            "id": 1,
+            "text": "I am an exchange student.",
+            "name": "exchange",
+            "type": "range",
+            "config" :{
+                "min": 0,
+                "max": 1,
+                "minText": "No",
+                "maxText": "Yes"
+            }
+        },
+        {
+            "id": 2,
             "text": "Started studies",
             "name": "enrolled",
             "type": "range",
@@ -224,7 +236,7 @@ var QUESTIONS = [
             }
         },
         {
-            "id": 2,
+            "id": 3,
             "text": "Graduated",
             "name": "graduated",
             "type": "range",
@@ -235,7 +247,7 @@ var QUESTIONS = [
             }
         },
         {
-            "id": 3,
+            "id": 4,
             "text": "Birth year",
             "name": "birth",
             "type": "range",
@@ -246,7 +258,7 @@ var QUESTIONS = [
             }
         },
         {
-            "id": 4,
+            "id": 5,
             "text": "I am better at groupwork due to my studies at Aalto University.",
             "name": "groupwork",
             "type": "range",
@@ -258,7 +270,7 @@ var QUESTIONS = [
             }
         },
      {
-            "id": 5,
+            "id": 6,
             "text": "Group work skills are important to me.",
             "name": "important",
             "type": "range",
@@ -270,7 +282,7 @@ var QUESTIONS = [
             }
      },
     {
-            "id": 6,
+            "id": 7,
             "text": "There are too many groupwork assigments at Aalto University",
             "name": "toomany",
             "type": "range",
@@ -282,7 +294,7 @@ var QUESTIONS = [
             }
     },
     {
-            "id": 7,
+            "id": 8,
             "text": "Group work helps me learn better.",
             "name": "helps_me",
             "type": "range",
@@ -294,7 +306,7 @@ var QUESTIONS = [
             }
     },
     {
-            "id": 8,
+            "id": 9,
             "text": "I have trouble forming a group for an assigment.",
             "name": "trouble",
             "type": "range",
@@ -306,7 +318,7 @@ var QUESTIONS = [
             }
     },
     {
-            "id": 9,
+            "id": 10,
             "text": "Our group gets enough support from our teacher during group work.",
             "name": "support",
             "type": "range",
@@ -318,7 +330,7 @@ var QUESTIONS = [
             }
     },
     {
-            "id": 10,
+            "id": 11,
             "text": "I run into conflicts in group work at Aalto.",
             "name": "conflicts",
             "type": "range",
@@ -330,7 +342,7 @@ var QUESTIONS = [
             }
     },
     {
-            "id": 11,
+            "id": 12,
             "text": "I am able to solve conflics in my group work.",
             "name": "solve_conflicts",
             "type": "range",
@@ -342,7 +354,7 @@ var QUESTIONS = [
             }
     },
     {
-            "id": 12,
+            "id": 13,
             "text": "Grading of group work is fair.",
             "name": "fair",
             "type": "range",
@@ -354,7 +366,7 @@ var QUESTIONS = [
             }
     },
     {
-            "id": 13,
+            "id": 14,
             "text": "My group work skills are improving at Aalto Universtiy.",
             "name": "improving",
             "type": "range",
@@ -366,7 +378,7 @@ var QUESTIONS = [
             }
     },
      {
-            "id": 14,
+            "id": 15,
             "text": "I would recommend Aalto University to a friend based on my experiences with group work here.",
             "name": "nps",
             "type": "range",
