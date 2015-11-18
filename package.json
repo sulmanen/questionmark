@@ -39,6 +39,6 @@
     "rimraf": "^2.4.3"
   },
   "dependencies": {
-    "react": "^0.14.0"
+    "react": "0.14.2"
   }
 }

@@ -189,6 +189,7 @@ var RangeQuestion = React.createClass({
 
         <input className="q-range" type="range"
         onInput={this.onInput}
+        onMouseMove={this.onInput}
         onMouseDown={this.onInput}
         onMouseUp={this.props.nextQuestion}
         onTouchStart={this.onInput}
