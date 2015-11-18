@@ -10,14 +10,13 @@ var Questionnaire = React.createClass({
             displayThankYou: this.stateDisplayThankYou,
             displayError: false
         };
-
         localStorage.setItem(STATE_KEY, JSON.stringify(state));
         this.setState(state);
+
         if (this.state.currentQuestion === this.props.questions.length) {
-            this.timeout = window.setTimeout(function() {
-                this.sendAnswers();
-            }.bind(this), 0);
+            this.sendAnswers();
         }
+
     },
     changeAnswer: function(name, value) {
         var answers = this.state.answers;
