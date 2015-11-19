@@ -181,10 +181,18 @@ var RangeQuestion = React.createClass({
         this.setState({value: e.target.value});
         this.props.changeAnswer(this.props.name, parseInt(e.target.value, 10));
     },
+    skip: function() {
+        this.setState({ value: 0 });
+        this.props.changeAnswer(this.props.name, 0);
+        this.props.nextQuestion();
+    },
     render: function() {
         return <div className="range-question" style={{ display: this.props.currentQuestion === this.props.id ? 'block' : 'none'}}>
         <h1>{this.props.id + 1}.<br/> {this.props.text}</h1>
-
+        <button className="q-skip" onClick={this.skip}
+        style={{display: this.props.config.skip === true ? 'block':'none'}}>
+        {this.props.config.skipText} <span className="q-skip-arrow">>></span>
+        </button>
         <div className="q-range-value">{this.state.value}</div>
 
         <input className="q-range" type="range"
@@ -226,7 +234,7 @@ var QUESTIONS = [
         },
         {
             "id": 2,
-            "text": "Started studies",
+            "text": "Started studies at Aalto University",
             "name": "enrolled",
             "type": "range",
             "config": {
@@ -243,7 +251,9 @@ var QUESTIONS = [
             "config": {
                 "min": 1980,
                 "max": 2015,
-                "step": 1
+                "step": 1,
+                "skip": true,
+                "skipText": "Not yet"
             }
         },
         {
