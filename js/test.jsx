@@ -111,6 +111,10 @@ var Questionnaire = React.createClass({
             if (question.type === 'range') {
                 return <RangeQuestion currentQuestion={this.state.currentQuestion} id={question.id} key={question.id} name={question.name} text={question.text} config={question.config} changeAnswer={this.changeAnswer} nextQuestion={this.nextQuestion}/>
             }
+
+            if (question.type === 'boolean') {
+                return <BooleanQuestion currentQuestion={this.state.currentQuestion} id={question.id} key={question.id} name={question.name} text={question.text} config={question.config} changeAnswer={this.changeAnswer} nextQuestion={this.nextQuestion}/>
+            }
         }.bind(this));
 
         var bubbles = this.props.questions.map(function(question) {
@@ -143,6 +147,30 @@ var Questionnaire = React.createClass({
         {questions}
         <div className="q-bubbles" style={{ display: this.state.currentQuestion === this.props.questions.length ? 'none' :'block'}}>{bubbles}</div>
         </div>;
+    }
+});
+var BooleanQuestion = React.createClass({
+    getInitialState: function() {
+        return { value: '' };
+    },
+    answer: function(value) {
+        this.setState({ value: value});
+        this.props.changeAnswer(this.props.name, value);
+        this.props.nextQuestion();
+    },
+    sayMin: function() {
+        this.answer(0);
+    },
+    sayMax: function() {
+        this.answer(1);
+    },
+    render: function() {
+        return <div style={{display: this.props.currentQuestion === this.props.id ? 'block' : 'none'}}>
+
+        <h1>{this.props.id + 1 } <br/>{this.props.text}</h1>
+        <button onClick={this.sayMin} className="q-boolean-button">{this.props.config.minText}</button>
+        <button onClick={this.sayMax} className="q-boolean-button">{this.props.config.maxText}</button>
+        </div>
     }
 });
 
@@ -188,7 +216,7 @@ var RangeQuestion = React.createClass({
     },
     render: function() {
         return <div className="range-question" style={{ display: this.props.currentQuestion === this.props.id ? 'block' : 'none'}}>
-        <h1>{this.props.id + 1}.<br/> {this.props.text}</h1>
+        <h1>{this.props.id + 1}<br/> {this.props.text}</h1>
         <button className="q-skip" onClick={this.skip}
         style={{display: this.props.config.skip === true ? 'block':'none'}}>
         {this.props.config.skipText} <span className="q-skip-arrow">>></span>
@@ -224,7 +252,7 @@ var QUESTIONS = [
             "id": 1,
             "text": "I am an exchange student.",
             "name": "exchange",
-            "type": "range",
+            "type": "boolean",
             "config" :{
                 "min": 0,
                 "max": 1,
