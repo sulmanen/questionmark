@@ -178,16 +178,23 @@ var EmailQuestion = React.createClass({
     getInitialState: function() {
         return { value: '', error: false};
     },
+    submit: function(valid, value) {
+        if (valid) {
+            this.setState({ value: value });
+            this.props.changeAnswer(this.props.name, value);
+            this.props.nextQuestion();
+        } else {
+            this.setState({ value: this.state.value, error: true });
+        }
+    },
+    go: function() {
+        var input = document.getElementById('q-email');
+        this.submit(input.checkValidity(), input.value);
+    },
     onDone: function(e) {
 
         if (e.keyCode === 13) {
-            if (e.target.checkValidity()) {
-                this.setState({ value: e.target.value });
-                this.props.changeAnswer(this.props.name, e.target.value);
-                this.props.nextQuestion();
-            } else {
-                this.setState({ value: this.state.value, error: true });
-            }
+            this.submit(e.target.checkValidity(), e.target.value);
         } else {
             this.setState({ value: this.state.value, error: false });
         }
@@ -195,8 +202,10 @@ var EmailQuestion = React.createClass({
     },
     render: function() {
         return <div className="range-question" style={{display: this.props.currentQuestion === this.props.id ? 'block' : 'none'}}>
-        <input className={this.state.error ? 'submitted q-email': 'q-email'} type="email" name={this.props.name} autoComplete="email" autoFocus="autofocus" maxLength="255" minLength="4" placeholder="Email" onKeyDown={this.onDone}/>
+        <input required id="q-email" className={this.state.error ? 'submitted q-email': 'q-email'} type="email" name={this.props.name} autoComplete="email" autoFocus="autofocus" maxLength="255" minLength="4" placeholder="Email" onKeyDown={this.onDone}/>
         <small className="q-email-error" style={{display: this.state.error ? 'block' : 'none'}}>Bogus email. Try harder.</small>
+        <br/>
+        <button onClick={this.go} className="q-boolean-button">Go!</button>
         </div>
     }
 
@@ -232,6 +241,7 @@ var RangeQuestion = React.createClass({
         onTouchEnd={this.props.nextQuestion}
         min={this.props.config.min} max={this.props.config.max}
         step={this.props.config.step}/>
+
         <div className="q-range-min"><small>{this.props.config.min}</small> {this.props.config.minText}</div>
         <div className="q-range-max">{this.props.config.maxText} <small>{this.props.config.max}</small></div>
 
