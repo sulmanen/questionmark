@@ -464,6 +464,6 @@ var QUESTIONS = [
 ];
 var INTRO = {
     title: 'Welcome to the group work survey.',
-    text: 'Please enter your email to start. We want to make sure youre real and serious. Not used for anything else.'
+    text: 'Please enter your email to start. We want to make sure you\'re real and serious. Not used for anything else.'
 }
 ReactDOM.render(<Questionnaire questions={QUESTIONS} intro={INTRO}/>, document.getElementById('questions'));
