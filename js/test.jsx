@@ -288,7 +288,7 @@ var QUESTIONS = [
             "name": "enrolled",
             "type": "range",
             "config": {
-                "min": 1980,
+                "min": 1990,
                 "max": 2015,
                 "step": 1
             }
