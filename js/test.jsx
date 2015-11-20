@@ -18,6 +18,18 @@ var Questionnaire = React.createClass({
         }
 
     },
+    goBack: function() {
+        var state = {
+            answers: this.state.answers,
+            currentQuestion: --this.state.currentQuestion,
+            sending: this.state.sending,
+            displayThankYou: this.stateDisplayThankYou,
+            displayError: false
+        };
+        localStorage.setItem(STATE_KEY, JSON.stringify(state));
+        this.setState(state);
+
+    },
     changeAnswer: function(name, value) {
         var answers = this.state.answers;
         answers[name] = value;
@@ -136,7 +148,7 @@ var Questionnaire = React.createClass({
         <h1>Oops. We messed up!</h1>
         </div>
 
-        <div>
+        <div onClick={this.goBack} className="q-back fa fa-arrow-circle-left fa-5" style={{ display: this.state.currentQuestion > 0 && !this.state.displayThankYou && !this.state.displayError && !this.state.sending ? 'block' : 'none'}}>
 
         </div>
 
