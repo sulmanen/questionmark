@@ -266,8 +266,8 @@ var QUESTIONS = [
             "config" :{
                 "min": 0,
                 "max": 1,
-                "minText": "Gal",
-                "maxText": "Guy"
+                "minText": "Girl",
+                "maxText": "Boy"
             }
         },
         {
@@ -367,7 +367,7 @@ var QUESTIONS = [
     },
     {
             "id": 10,
-            "text": "I have trouble forming a group for an assigment.",
+            "text": "I have trouble forming a group for an assignment.",
             "name": "trouble",
             "type": "range",
             "config" :{
