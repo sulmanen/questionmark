@@ -177,7 +177,7 @@ var BooleanQuestion = React.createClass({
         this.answer(1);
     },
     render: function() {
-        return <div style={{display: this.props.currentQuestion === this.props.id ? 'block' : 'none'}}>
+        return <div className="range-question" style={{display: this.props.currentQuestion === this.props.id ? 'block' : 'none'}}>
 
         <h1>{this.props.id + 1 } <br/>{this.props.text}</h1>
         <button onClick={this.sayMin} className="q-boolean-button">{this.props.config.minText}</button>
@@ -463,7 +463,7 @@ var QUESTIONS = [
     }
 ];
 var INTRO = {
-    title: 'Welcome to the group work survey.',
+    title: 'Aalto Student & Alumni. Are we learning to work together better at Aalto University? Help us find out.',
     text: 'Please enter your email to start. We want to make sure you\'re real and serious. Not used for anything else.'
 }
 ReactDOM.render(<Questionnaire questions={QUESTIONS} intro={INTRO}/>, document.getElementById('questions'));
