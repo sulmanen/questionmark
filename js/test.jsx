@@ -154,7 +154,7 @@ var Questionnaire = React.createClass({
 
        <section style={{ display: this.state.currentQuestion === 0 ? 'block' :'none'}}>
         <h1>{this.props.intro.title}</h1>
-        <h3>{this.props.intro.text}</h3>
+        <h5>{this.props.intro.text}</h5>
         </section>
         {questions}
         <div className="q-bubbles" style={{ display: this.state.currentQuestion === this.props.questions.length ? 'none' :'block'}}>{bubbles}</div>
