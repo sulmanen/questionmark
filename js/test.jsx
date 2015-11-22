@@ -463,7 +463,7 @@ var QUESTIONS = [
     }
 ];
 var INTRO = {
-    title: 'Aalto Student & Alumni. Are we learning to work together better at Aalto University? Help us find out.',
+    title: 'Aalto Students & Alumni. Are we learning to work together better at Aalto University? Help us find out.',
     text: 'Please enter your email to start. We want to make sure you\'re real and serious. Not used for anything else.'
 }
 ReactDOM.render(<Questionnaire questions={QUESTIONS} intro={INTRO}/>, document.getElementById('questions'));
