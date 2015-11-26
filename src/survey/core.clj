@@ -115,9 +115,10 @@
                                  :handle-ok (slurp "resources/data/questionnaire.json")))
   (ANY "/answers" []
      (resource
-      :allowed-methods [:post ]
+      :allowed-methods [:post :get]
       :available-media-types ["application/json"]
-;;      :handle-ok (read-answer)
+      ;;      :handle-ok (read-answer)
+      :handle-ok (slurp "resources/answers.json")
       :post! (fn [ctx]
                (if-let [body (body-as-string ctx)]
                  (try
@@ -126,6 +127,10 @@
                      (update-answer! (parse-string body true))))))))
   (ANY "/" [] (resource :available-media-types ["text/html"]
                         :handle-ok (slurp "resources/index.html")))
+  (ANY "/results" [] (resource :available-media-types ["text/html"]
+                               :handle-ok (slurp "resources/results.html")))
+  (ANY "/js/analysis.js" [] (resource :available-media-types ["text/javascript"]
+                                      :handle-ok (slurp "js/analysis.js")))
   (ANY "/js/questionmark.js" [] (resource :available-media-types ["text/html"]
                                           :handle-ok (ring-response {:headers {"Content-Encoding" "gzip"} :body (input-stream "resources/public/questionmark.js.gz")})))
   (ANY "/aalto.svg" [] (resource :available-media-types ["image/svg+xml"]
