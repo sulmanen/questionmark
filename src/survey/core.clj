@@ -115,9 +115,9 @@
                                  :handle-ok (slurp "resources/data/questionnaire.json")))
   (ANY "/answers" []
      (resource
-      :allowed-methods [:post]
+      :allowed-methods [:post :get]
       :available-media-types ["application/json"]
-;;      :handle-ok (read-answer)
+      :handle-ok (read-answer)
       :post! (fn [ctx]
                (if-let [body (body-as-string ctx)]
                  (try
