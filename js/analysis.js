@@ -71,11 +71,24 @@ function showAnswer(question, answers) {
 }
 
 function getAnswer(answerKey, answers) {
-    return Math.floor(answers.map(function(answer) {
-        return answer[answerKey];
-    }).reduce(function(previous, current) {
-        return previous + current;
-    }, 0) / answers.length);
+    if (answerKey === 'nps') {
+        var detractors = 0, promoters = 0;
+        answers.map(function(answer) {
+            if (answer.nps > 8) {
+                promoters++;
+            } else if (answer.nps < 7){
+                detractors++;
+            }
+        });
+
+        return Math.round(((promoters - detractors) / answers.length) * 100);
+    } else {
+        return Math.floor(answers.map(function(answer) {
+            return answer[answerKey];
+        }).reduce(function(previous, current) {
+            return previous + current;
+        }, 0) / answers.length);
+    }
 }
 
 function updateCount(answers) {
