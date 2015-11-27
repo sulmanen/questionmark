@@ -5,25 +5,25 @@
   </head>
 
   <body>
-    <h1>Results: <small id="count"></small> <small>answers</small></h1>
+    <h1>Results: <small id="count"></small></h1>
     <label>Show all:
-    <input type="checkbox" checked/>
+    <input id="all" type="checkbox" checked onclick="update();"/>
     </label>
     <label>Gender:
-    <select id="gender" name="gender">
+    <select id="gender" name="gender" onchange="update();">
       <option value="0" selected>Girl</option>
       <option value="1">Boy</option>
     </select>
     </label>
     <label>Exchange:
-    <select id="exchange" name="exchange">
+    <select id="exchange" name="exchange" onchange="update();">
       <option value="0" selected>No</option>
       <option value="1">Yes</option>
     </select>
     </label>
 
     <label>Graduated:
-    <select id="graduated" name="graduated">
+    <select id="graduated" name="graduated" onchange="update();">
       <option value="0" selected>No</option>
       <option value="1">Yes</option>
     </select>

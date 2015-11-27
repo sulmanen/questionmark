@@ -1,9 +1,10 @@
-var request = new XMLHttpRequest(), answers;
+var request = new XMLHttpRequest(), answersCache;
 
 request.onreadystatechange = function() {
     if (request.readyState == XMLHttpRequest.DONE ) {
         if(request.status == 200){
-            process(JSON.parse(request.responseText));
+            answersCache = JSON.parse(request.responseText);
+            process(answersCache);
         }
     }
 };
@@ -14,27 +15,59 @@ request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
 request.send();
 
+function update() {
+    console.log('update');
+    clear();
+    process(answersCache);
+}
+
+function clear() {
+    var results = document.getElementById('results');
+
+    while(results.hasChildNodes()) {
+        results.removeChild(results.lastChild);
+    }
+
+}
+
 function process(answers) {
-    var genderFilter  = document.getElementById('gender').value,
-        exchangeFilter = document.getElementById('exchange'),
-        graduatedFilter = document.getElementById('graduated');
+    var genderFilter  = parseInt(document.getElementById('gender').value, 10),
+        exchangeFilter = parseInt(document.getElementById('exchange').value, 10),
+        graduatedFilter = parseInt(document.getElementById('graduated').value, 10),
+        showAll = document.getElementById('all').checked,
+        filteredAnswers;
 
     QUESTIONS.slice(6).forEach(function(question) {
-        showAnswer(question, answers);
+        if (showAll) {
+            showAnswer(question, answers);
+        } else {
+            showAnswer(question, filter(answers, genderFilter, exchangeFilter, graduatedFilter));
+        }
+
+    });
+}
+
+function filter(answers, genderFilter, exchangeFilter, graduatedFilter) {
+    return answers.filter(function(answer) {
+        if (answer.gender === genderFilter &&
+            answer.exchange === exchangeFilter &&
+            answer.graduated > graduatedFilter) {
+            return true;
+        }
+        return false;
     });
 }
 
 function showAnswer(question, answers) {
-
-    var heading = document.createElement('h1');
+    var heading = document.createElement('h3');
     heading.appendChild(document.createTextNode(question.text));
     var value = document.createElement('h2');
     value.appendChild(document.createTextNode(
         getAnswer(question.name, answers)
     ));
-    document.body.appendChild(heading);
-    document.body.appendChild(value);
-
+    var results = document.getElementById('results');
+    results.appendChild(heading);
+    results.appendChild(value);
 }
 
 function getAnswer(answerKey, answers) {
@@ -51,6 +84,7 @@ function updateCount(answers) {
 
     return answers;
 }
+
 var QUESTIONS = [
         {
             "id": 0,
