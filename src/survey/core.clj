@@ -38,12 +38,12 @@
                                  (get-in (uri->map (make db-url)) [:path] "/survey")])
               :user (get (split (get-in (uri->map (make db-url))
                                         [:user-info]
-                                        "sulmanen:pftvppeh")
+                                        "pepsi:pepsi")
                                 #":")
                          0)
               :password (get (split (get-in (uri->map (make db-url))
                                             [:user-info]
-                                            "sulmanen:pftvppeh")
+                                            "pepsi:pepsi")
                                     #":")
                              1)})
 
