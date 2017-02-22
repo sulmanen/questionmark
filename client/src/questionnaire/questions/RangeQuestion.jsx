@@ -24,20 +24,18 @@ export default class RangeQuestion extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = this.initValue(props);
+    const { max, min } = props.config;
+
+    if (max === 1) {
+      this.state = { value: 1 };
+    } else {
+      this.state = { value: Math.floor((max - min) / 2) + min };
+    }
   }
 
   onInput = (e) => {
     this.setState({ value: e.target.value });
     this.props.changeAnswer(this.props.name, parseInt(e.target.value, 10));
-  }
-
-  getInitialValue = () =>
-    Math.floor((this.props.config.max - this.props.config.min) / 2) + this.props.config.min;
-
-
-  initValue(props) {
-    return props.config.max === 1 ? { value: 1 } : { value: this.getInitialValue() };
   }
 
   skip = () => {
