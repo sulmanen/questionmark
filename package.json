@@ -3,11 +3,12 @@
   "version": "0.0.1",
   "description": "group work",
   "main": " ",
-    "scripts": {
-        "build": "npm install .",
-        "start": "node_modules/gulp/bin/gulp.js deploy",
-        "test": " "
-    },
+  "scripts": {
+    "build": "npm install .",
+    "start": "webpack --config webpack.config.js",
+    "test": " ",
+    "lint": "eslint \"client/**/*.js?\""
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sulmanen/questionmark.git"
@@ -22,23 +23,20 @@
   },
   "homepage": "https://github.com/sulmanen/questionmark#readme",
   "devDependencies": {
-    "babel": "^5.8.29",
-    "gulp": "^3.9.0",
-    "gulp-add-src": "^0.2.0",
-    "gulp-babel": "^5.3.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-continuous-concat": "^0.1.1",
-    "gulp-debug": "^2.1.2",
-    "gulp-gzip": "^1.2.0",
-    "gulp-jshint": "^1.11.2",
-    "gulp-livereload": "^3.8.1",
-    "gulp-plumber": "^1.0.1",
-    "gulp-uglify": "^1.4.2",
-    "gulp-watch": "^4.3.5",
-    "jshint-stylish": "^2.0.1",
-    "rimraf": "^2.4.3"
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
+    "json-loader": "^0.5.4",
+    "webpack": "^2.2.1"
   },
   "dependencies": {
-    "react": "0.14.2"
+    "babel-eslint": "^7.1.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
   }
 }
