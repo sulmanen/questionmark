@@ -1,9 +1,3 @@
-import EmailQuestion from './EmailQuestion';
-import RangeQuestion from './RangeQuestion';
-import BooleanQuestion from './BooleanQuestion';
-
-export default {
-  EmailQuestion,
-  RangeQuestion,
-  BooleanQuestion,
-};
+export EmailQuestion from './EmailQuestion';
+export RangeQuestion from './RangeQuestion';
+export BooleanQuestion from './BooleanQuestion';

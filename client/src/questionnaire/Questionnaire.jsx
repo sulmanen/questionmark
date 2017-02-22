@@ -13,19 +13,21 @@ export default class Questionnaire extends React.Component {
   static displayName = 'Questionnaire';
 
   static propTypes = {
-    questions: React.PropTypes.arrayof(React.PropTypes.object).isRequired,
+    questions: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
     intro: React.PropTypes.shape({
       title: React.PropTypes.string.isRequired,
       text: React.PropTypes.string.isRequired,
     }).isRequired,
   };
 
-  getInitialState() {
+  constructor(props) {
+    super(props);
     const savedState = window.localStorage.getItem(STATE_KEY);
     if (savedState) {
-      return JSON.parse(savedState);
+      this.state = JSON.parse(savedState);
     }
-    return {
+
+    this.state = {
       answers: {},
       currentQuestion: 0,
       sending: false,
@@ -34,7 +36,7 @@ export default class Questionnaire extends React.Component {
     };
   }
 
-  nextQuestion() {
+  nextQuestion = () => {
     const nextQuestionIndex = this.state.currentQuestion + 1;
     const state = {
       answers: this.state.answers,
@@ -52,7 +54,7 @@ export default class Questionnaire extends React.Component {
     }
   }
 
-  goBack() {
+  goBack = () => {
     const previousQuestionIndex = this.state.currentQuestion - 1;
 
     const state = {
@@ -66,7 +68,7 @@ export default class Questionnaire extends React.Component {
     this.setState(state);
   }
 
-  changeAnswer(name, value) {
+  changeAnswer = (name, value) => {
     const answers = this.state.answers;
     answers[name] = value;
     window.clearTimeout(timeout);
@@ -80,7 +82,7 @@ export default class Questionnaire extends React.Component {
     });
   }
 
-  showError() {
+  showError = () => {
     this.setState({
       answers: this.state.answers,
       currentQuestion: this.state.currentQuestion,
@@ -90,7 +92,7 @@ export default class Questionnaire extends React.Component {
     });
   }
 
-  sayThanks() {
+  sayThanks = () => {
     this.setState({
       answers: this.state.answers,
       currentQuestion: this.state.currentQuestion,
@@ -109,15 +111,15 @@ export default class Questionnaire extends React.Component {
     });
   }
 
-  startSpinner() {
+  startSpinner = () => {
     this.toggleSpinner(true);
   }
 
-  stopSpinner() {
+  stopSpinner = () => {
     this.toggleSpinner(false);
   }
 
-  sendAnswers() {
+  sendAnswers = () => {
     const request = new window.XMLHttpRequest();
     const data = { ...this.state.answers, sent: Date.now() };
 

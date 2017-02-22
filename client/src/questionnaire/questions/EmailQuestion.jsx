@@ -4,18 +4,19 @@ export default class EmailQuestion extends React.Component {
   static displayName = 'EmailQuestion';
 
   static propTypes = {
-    id: React.PropTypes.int.isRequired,
-    name: React.PropTypes.func.isRequired,
+    id: React.PropTypes.number.isRequired,
+    name: React.PropTypes.string.isRequired,
     changeAnswer: React.PropTypes.func.isRequired,
     nextQuestion: React.PropTypes.func.isRequired,
-    currentQuestion: React.PropTypes.int.isRequired,
+    currentQuestion: React.PropTypes.number.isRequired,
   };
 
-  getInitialState() {
-    return { value: '', error: false };
-  }
+  state = {
+    value: '',
+    error: false,
+  };
 
-  onDone(e) {
+  onDone = (e) => {
     if (e.keyCode === 13) {
       this.submit(e.target.checkValidity(), e.target.value);
     } else {
@@ -23,12 +24,12 @@ export default class EmailQuestion extends React.Component {
     }
   }
 
-  go() {
+  go = () => {
     const input = window.document.getElementById('q-email');
     this.submit(input.checkValidity(), input.value);
   }
 
-  submit(valid, value) {
+  submit = (valid, value) => {
     if (valid) {
       this.setState({ value });
       this.props.changeAnswer(this.props.name, value);

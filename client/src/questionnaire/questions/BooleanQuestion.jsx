@@ -5,32 +5,30 @@ export default class BooleanQuestion extends React.Component {
 
   static propTypes = {
     id: React.PropTypes.number.isRequired,
-    name: React.PropTypes.func.isRequired,
+    name: React.PropTypes.string.isRequired,
     text: React.PropTypes.string.isRequired,
     changeAnswer: React.PropTypes.func.isRequired,
     nextQuestion: React.PropTypes.func.isRequired,
-    currentQuestion: React.PropTypes.func.isRequired,
+    currentQuestion: React.PropTypes.number.isRequired,
     config: React.PropTypes.shape({
       minText: React.PropTypes.string.isRequired,
       maxText: React.PropTypes.string.isRequired,
     }).isRequired,
   };
 
-  getInitialState() {
-    return { value: '' };
-  }
+  state = { value: '' };
 
-  answer(value) {
+  answer = (value) => {
     this.setState({ value });
     this.props.changeAnswer(this.props.name, value);
     this.props.nextQuestion();
   }
 
-  sayMin() {
+  sayMin = () => {
     this.answer(0);
   }
 
-  sayMax() {
+  sayMax = () => {
     this.answer(1);
   }
 

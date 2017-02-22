@@ -5,13 +5,13 @@ export default class RangeQuestion extends React.Component {
   static displayName = 'RangeQuestion';
 
   static propTypes = {
-    id: React.PropTypes.int.isRequired,
-    text: React.PropTypes.int.isRequired,
+    id: React.PropTypes.number.isRequired,
+    text: React.PropTypes.string.isRequired,
     config: React.PropTypes.shape({
       min: React.PropTypes.number.isRequired,
       max: React.PropTypes.number.isRequired,
-      step: React.PropTypes.number.isRequired,
-      skip: React.PropTypes.boolean.isRequired,
+      step: React.PropTypes.number,
+      skip: React.PropTypes.bool,
       skipText: React.PropTypes.string,
       minText: React.PropTypes.string,
       maxText: React.PropTypes.string,
@@ -19,23 +19,28 @@ export default class RangeQuestion extends React.Component {
     name: React.PropTypes.string.isRequired,
     changeAnswer: React.PropTypes.func.isRequired,
     nextQuestion: React.PropTypes.func.isRequired,
-    currentQuestion: React.PropType.int.isRequired,
+    currentQuestion: React.PropTypes.number.isRequired,
   };
 
-  getInitialState() {
-    return this.props.config.max === 1 ? { value: 1 } : { value: this.getInitialValue() };
+  constructor(props) {
+    super(props);
+    this.state = this.initValue(props);
   }
 
-  onInput(e) {
+  onInput = (e) => {
     this.setState({ value: e.target.value });
     this.props.changeAnswer(this.props.name, parseInt(e.target.value, 10));
   }
 
-  getInitialValue() {
-    return Math.floor((this.props.config.max - this.props.config.min) / 2) + this.props.config.min;
+  getInitialValue = () =>
+    Math.floor((this.props.config.max - this.props.config.min) / 2) + this.props.config.min;
+
+
+  initValue(props) {
+    return props.config.max === 1 ? { value: 1 } : { value: this.getInitialValue() };
   }
 
-  skip() {
+  skip = () => {
     this.setState({ value: 0 });
     this.props.changeAnswer(this.props.name, 0);
     this.props.nextQuestion();
