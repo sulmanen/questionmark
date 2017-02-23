@@ -136,45 +136,46 @@ export default class Questionnaire extends React.Component {
 
   render() {
     const questions = this.props.questions.map((question) => {
-      if (question.type === 'email') {
-        return (<EmailQuestion
-          currentQuestion={this.state.currentQuestion}
-          id={question.id}
-          key={question.id}
-          name={question.name}
-          text={question.text}
-          nextQuestion={this.nextQuestion}
-          changeAnswer={this.changeAnswer}
-        />);
-      }
+      switch (question.type) {
+        case 'email': {
+          return (<EmailQuestion
+            currentQuestion={this.state.currentQuestion}
+            id={question.id}
+            key={question.id}
+            name={question.name}
+            text={question.text}
+            nextQuestion={this.nextQuestion}
+            changeAnswer={this.changeAnswer}
+          />);
+        }
 
-      if (question.type === 'range') {
-        return (<RangeQuestion
-          currentQuestion={this.state.currentQuestion}
-          id={question.id}
-          key={question.id}
-          name={question.name}
-          text={question.text}
-          config={question.config}
-          changeAnswer={this.changeAnswer}
-          nextQuestion={this.nextQuestion}
-        />);
-      }
+        case 'range': {
+          return (<RangeQuestion
+            currentQuestion={this.state.currentQuestion}
+            id={question.id}
+            key={question.id}
+            name={question.name}
+            text={question.text}
+            config={question.config}
+            changeAnswer={this.changeAnswer}
+            nextQuestion={this.nextQuestion}
+          />);
+        }
 
-      if (question.type === 'boolean') {
-        return (<BooleanQuestion
-          currentQuestion={this.state.currentQuestion}
-          id={question.id}
-          key={question.id}
-          name={question.name}
-          text={question.text}
-          config={question.config}
-          changeAnswer={this.changeAnswer}
-          nextQuestion={this.nextQuestion}
-        />);
+        case 'boolean':
+        default: {
+          return (<BooleanQuestion
+            currentQuestion={this.state.currentQuestion}
+            id={question.id}
+            key={question.id}
+            name={question.name}
+            text={question.text}
+            config={question.config}
+            changeAnswer={this.changeAnswer}
+            nextQuestion={this.nextQuestion}
+          />);
+        }
       }
-
-      return null;
     });
 
     const bubbles = this.props.questions.map((question) => {
