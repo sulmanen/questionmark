@@ -36,7 +36,8 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.0",
     "json-loader": "^0.5.4",
-    "webpack": "^2.2.1"
+    "webpack": "^2.2.1",
+    "webpack-closure-compiler": "^2.1.4"
   },
   "dependencies": {
     "babel-eslint": "^7.1.1",
