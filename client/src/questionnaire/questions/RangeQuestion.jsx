@@ -52,7 +52,7 @@ export default class RangeQuestion extends React.Component {
         className="q-skip" onClick={this.skip}
         style={{ display: this.props.config.skip === true ? 'block' : 'none' }}
       >
-        {this.props.config.skipText} <span className="q-skip-arrow">&gt&gt</span>
+        {this.props.config.skipText} <span className="q-skip-arrow">&gt;&gt;</span>
       </button>
 
       <div className="q-range-value">{this.state.value}</div>
