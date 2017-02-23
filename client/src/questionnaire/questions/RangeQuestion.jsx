@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class RangeQuestion extends React.Component {
+export default class RangeQuestion extends React.PureComponent {
 
   static displayName = 'RangeQuestion';
 

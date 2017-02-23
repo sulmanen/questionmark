@@ -47,11 +47,12 @@ export default class Questionnaire extends React.Component {
     };
 
     window.localStorage.setItem(STATE_KEY, JSON.stringify(state));
-    this.setState(state);
 
-    if (this.state.currentQuestion === this.props.questions.length) {
+    if (state.currentQuestion === this.props.questions.length) {
       this.sendAnswers();
     }
+
+    this.setState(state);
   }
 
   goBack = () => {
