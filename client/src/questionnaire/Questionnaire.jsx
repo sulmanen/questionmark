@@ -122,7 +122,6 @@ export default class Questionnaire extends React.Component {
           window.localStorage.removeItem(STATE_KEY);
         } else {
           this.showError();
-          window.localStorage.removeItem(STATE_KEY);
         }
       }
     };
