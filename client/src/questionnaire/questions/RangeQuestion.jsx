@@ -60,6 +60,7 @@ export default class RangeQuestion extends React.Component {
       <input
         className="q-range"
         type="range"
+        value={this.state.value}
         onInput={this.onInput}
         onMouseMove={this.onInput}
         onMouseDown={this.onInput}
