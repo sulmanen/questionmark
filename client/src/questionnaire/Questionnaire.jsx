@@ -25,24 +25,22 @@ export default class Questionnaire extends React.Component {
     const savedState = window.localStorage.getItem(STATE_KEY);
     if (savedState) {
       this.state = JSON.parse(savedState);
+    } else {
+      this.state = {
+        answers: {},
+        currentQuestion: 0,
+        sending: false,
+        displayThankYou: false,
+        displayError: false,
+      };
     }
-
-    this.state = {
-      answers: {},
-      currentQuestion: 0,
-      sending: false,
-      displayThankYou: false,
-      displayError: false,
-    };
   }
 
   nextQuestion = () => {
     const nextQuestionIndex = this.state.currentQuestion + 1;
     const state = {
-      answers: this.state.answers,
+      ...this.state,
       currentQuestion: nextQuestionIndex,
-      sending: this.state.sending,
-      displayThankYou: this.stateDisplayThankYou,
       displayError: false,
     };
 
@@ -59,12 +57,11 @@ export default class Questionnaire extends React.Component {
     const previousQuestionIndex = this.state.currentQuestion - 1;
 
     const state = {
-      answers: this.state.answers,
+      ...this.state,
       currentQuestion: previousQuestionIndex,
-      sending: this.state.sending,
-      displayThankYou: this.stateDisplayThankYou,
       displayError: false,
     };
+
     window.localStorage.setItem(STATE_KEY, JSON.stringify(state));
     this.setState(state);
   }
@@ -75,40 +72,32 @@ export default class Questionnaire extends React.Component {
     window.clearTimeout(timeout);
 
     this.setState({
+      ...this.state,
       answers,
-      currentQuestion: this.state.currentQuestion,
-      sending: this.state.sending,
-      displayThankYou: this.stateDisplayThankYou,
       displayError: false,
     });
   }
 
   showError = () => {
     this.setState({
-      answers: this.state.answers,
-      currentQuestion: this.state.currentQuestion,
+      ...this.state,
       sending: false,
-      displayThankYou: this.state.displayThankYou,
       displayError: true,
     });
   }
 
   sayThanks = () => {
     this.setState({
-      answers: this.state.answers,
-      currentQuestion: this.state.currentQuestion,
-      sending: this.state.sending,
+      ...this.state,
       displayThankYou: true,
       displayError: false,
     });
   }
 
-  toggleSpinner(isSending) {
+  toggleSpinner = (isSending) => {
     this.setState({
-      answers: this.state.answers,
-      currentQuestion: this.state.currentQuestion,
+      ...this.state,
       sending: isSending,
-      displayThankYou: this.state.displayThankYou,
     });
   }
 
