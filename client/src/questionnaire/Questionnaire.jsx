@@ -8,7 +8,6 @@ import {
   previousQuestion,
   changeAnswer,
   showError,
-  sayThanks,
   postAnswers,
 } from './actions';
 
@@ -19,14 +18,14 @@ class Questionnaire extends React.Component {
     onNextQuestion: PropTypes.func.isRequired,
     onPreviousQuestion: PropTypes.func.isRequired,
     onChangeAnswer: PropTypes.func.isRequired,
-    onShowError: PropTypes.func.isRequired,
+    onError: PropTypes.func.isRequired,
     onSendAnswers: PropTypes.func.isRequired,
-    displayError: PropTypes.bool.isRequired,
-    displayThankYou: PropTypes.bool.isRequired,
+    error: PropTypes.bool.isRequired,
+    thanks: PropTypes.bool.isRequired,
     sending: PropTypes.bool.isRequired,
     currentQuestion: PropTypes.number.isRequired,
-    answers: PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    questions: PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    answers: PropTypes.object.isRequired, // eslint-disable-line jsx/forbid-prop-types
+    questions: PropTypes.arrayOf(PropTypes.object).isRequired,
     intro: PropTypes.shape({
       title: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
@@ -42,12 +41,12 @@ class Questionnaire extends React.Component {
   render() {
     return (<div className={this.props.sending ? 'spinner q-groupwork' : 'q-groupwork'}>
 
-      <div style={{ display: this.props.displayThankYou ? 'block' : 'none' }}>
+      <div style={{ display: this.props.thanks ? 'block' : 'none' }}>
         <div className="checkmark" />
         <h1>Thank you!</h1>
       </div>
 
-      <div style={{ display: this.props.displayError ? 'block' : 'none' }} >
+      <div style={{ display: this.props.error ? 'block' : 'none' }} >
         <div className="q-error">X</div>
         <h1>Oops. We messed up!</h1>
       </div>
@@ -55,7 +54,7 @@ class Questionnaire extends React.Component {
       <button
         onClick={this.props.onPreviousQuestion}
         className="q-back fa fa-arrow-circle-left fa-5"
-        style={{ display: this.props.currentQuestion > 0 && !this.props.displayThankYou && !this.props.displayError && !this.props.sending ? 'block' : 'none' }}
+        style={{ display: this.props.currentQuestion > 0 && !this.props.thanks && !this.props.error && !this.props.sending ? 'block' : 'none' }}
       />
 
       <section style={{ display: this.props.currentQuestion === 0 ? 'block' : 'none' }}>
@@ -65,9 +64,10 @@ class Questionnaire extends React.Component {
       <Questions
         questions={this.props.questions}
         currentQuestion={this.props.currentQuestion}
+        error={this.props.error}
         onChangeAnswer={this.props.onChangeAnswer}
         onNextQuestion={this.props.onNextQuestion}
-        onShowError={this.props.onShowError}
+        onError={this.props.onError}
       />
       <div className="q-bubbles" style={{ display: this.props.currentQuestion === this.props.questions.length ? 'none' : 'block' }}>
         <QuestionnaireProgress
@@ -79,17 +79,18 @@ class Questionnaire extends React.Component {
   }
 }
 
-export default connect(state => ({
-  currentQuestion: state.currentQuestion,
-  sending: state.sending,
-  answers: state.answers,
-  displayError: state.displayError,
-  displayThankYou: state.displayThankYou,
-}), dispatch => ({
-  onNextQuestion: () => dispatch(nextQuestion()),
-  onPreviousQuestion: () => dispatch(previousQuestion()),
-  onChangeAnswer: (question, answer) => dispatch(changeAnswer(question, answer)),
-  onShowError: () => dispatch(showError()),
-  onSayThanks: () => dispatch(sayThanks()),
-  onSendAnswers: answers => dispatch(postAnswers(answers)),
-}))(Questionnaire);
+export default connect(({ questionnaire }) => {
+  console.log(questionnaire);
+  return ({
+    currentQuestion: questionnaire.currentQuestion,
+    sending: questionnaire.sending,
+    answers: questionnaire.answers,
+    error: questionnaire.error,
+    thanks: questionnaire.thanks,
+  })}, dispatch => ({
+    onNextQuestion: () => dispatch(nextQuestion()),
+    onPreviousQuestion: () => dispatch(previousQuestion()),
+    onChangeAnswer: (question, answer) => dispatch(changeAnswer(question, answer)),
+    onError: () => dispatch(showError()),
+    onSendAnswers: answers => dispatch(postAnswers(answers)),
+  }))(Questionnaire);

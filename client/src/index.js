@@ -1,10 +1,8 @@
 export const STATE_KEY = 'survey-2017';
-const INITIAL_STATE = {
-  answers: {},
+export const INITIAL_STATE = {
   currentQuestion: 0,
+  answers: {},
   sending: false,
-  displayThankYou: false,
-  displayError: false,
+  thanks: false,
+  error: false,
 };
-
-export default INITIAL_STATE;

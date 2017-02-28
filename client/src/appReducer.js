@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import { questionnaireReducer, postAnswersReducer } from './questionnaire/';
+import { questionnaire } from './questionnaire';
 
 export default combineReducers({
-  questionnaireReducer
+  questionnaire,
 });

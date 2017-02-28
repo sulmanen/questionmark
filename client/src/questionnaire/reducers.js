@@ -1,13 +1,13 @@
 import { INITIAL_STATE } from '../';
 
-const questionnaireReducer = (state = INITIAL_STATE, action) => {
+const questionnaire = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case 'NEXT_QUESTION': {
       const nextQuestionIndex = this.state.currentQuestion + 1;
       return {
         ...state,
         currentQuestion: nextQuestionIndex,
-        displayError: false,
+        error: false,
       };
     }
     case 'PREVIOUS_QUESTION': {
@@ -15,7 +15,27 @@ const questionnaireReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentQuestion: previousQuestionIndex,
-        displayError: false,
+        error: false,
+      };
+    }
+    case 'POST_ANSWERS_REQUEST': {
+      return {
+        ...state,
+        sending: true,
+      };
+    }
+    case 'POST_ANSWERS_SUCCESS': {
+      return {
+        ...state,
+        sending: false,
+        thanks: true,
+      };
+    }
+    case 'POST_ANSWERS_FAILURE': {
+      return {
+        ...state,
+        sending: false,
+        error: true,
       };
     }
     case 'CHANGE_ANSWER': {
@@ -28,24 +48,24 @@ const questionnaireReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         answers,
-        displayError: false,
+        error: false,
       };
     }
     case 'SHOW_ERROR':
       return {
         ...state,
         sending: false,
-        displayError: true,
+        error: true,
       };
     case 'SAY_THANKS':
       return {
         ...state,
         displayThankYou: true,
-        displayError: false,
+        error: false,
       };
     default:
       return state;
   }
 };
 
-export default questionnaireReducer;
+export default questionnaire;
