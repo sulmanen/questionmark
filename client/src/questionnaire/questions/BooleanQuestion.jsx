@@ -1,27 +1,24 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 export default class BooleanQuestion extends React.Component {
   static displayName = 'BooleanQuestion';
 
   static propTypes = {
-    id: React.PropTypes.number.isRequired,
-    name: React.PropTypes.string.isRequired,
-    text: React.PropTypes.string.isRequired,
-    changeAnswer: React.PropTypes.func.isRequired,
-    nextQuestion: React.PropTypes.func.isRequired,
-    currentQuestion: React.PropTypes.number.isRequired,
-    config: React.PropTypes.shape({
-      minText: React.PropTypes.string.isRequired,
-      maxText: React.PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    onChangeAnswer: PropTypes.func.isRequired,
+    onNextQuestion: PropTypes.func.isRequired,
+    currentQuestion: PropTypes.number.isRequired,
+    config: PropTypes.shape({
+      minText: PropTypes.string.isRequired,
+      maxText: PropTypes.string.isRequired,
     }).isRequired,
   };
 
-  state = { value: '' };
-
   answer = (value) => {
-    this.setState({ value });
-    this.props.changeAnswer(this.props.name, value);
-    this.props.nextQuestion();
+    this.props.onChangeAnswer(this.props.name, value);
+    this.props.onNextQuestion();
   }
 
   sayMin = () => {

@@ -1,25 +1,25 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 export default class RangeQuestion extends React.PureComponent {
 
   static displayName = 'RangeQuestion';
 
   static propTypes = {
-    id: React.PropTypes.number.isRequired,
-    text: React.PropTypes.string.isRequired,
-    config: React.PropTypes.shape({
-      min: React.PropTypes.number.isRequired,
-      max: React.PropTypes.number.isRequired,
-      step: React.PropTypes.number,
-      skip: React.PropTypes.bool,
-      skipText: React.PropTypes.string,
-      minText: React.PropTypes.string,
-      maxText: React.PropTypes.string,
+    id: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    config: PropTypes.shape({
+      min: PropTypes.number.isRequired,
+      max: PropTypes.number.isRequired,
+      step: PropTypes.number,
+      skip: PropTypes.bool,
+      skipText: PropTypes.string,
+      minText: PropTypes.string,
+      maxText: PropTypes.string,
     }).isRequired,
-    name: React.PropTypes.string.isRequired,
-    changeAnswer: React.PropTypes.func.isRequired,
-    nextQuestion: React.PropTypes.func.isRequired,
-    currentQuestion: React.PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    onChangeAnswer: PropTypes.func.isRequired,
+    onNextQuestion: PropTypes.func.isRequired,
+    currentQuestion: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -34,14 +34,12 @@ export default class RangeQuestion extends React.PureComponent {
   }
 
   onInput = (e) => {
-    this.setState({ value: e.target.value });
-    this.props.changeAnswer(this.props.name, parseInt(e.target.value, 10));
+    this.props.onChangeAnswer(this.props.name, parseInt(e.target.value, 10));
   }
 
   skip = () => {
-    this.setState({ value: 0 });
-    this.props.changeAnswer(this.props.name, 0);
-    this.props.nextQuestion();
+    this.props.onChangeAnswer(this.props.name, 0);
+    this.props.onNextQuestion();
   }
 
   render() {
@@ -64,9 +62,9 @@ export default class RangeQuestion extends React.PureComponent {
         onInput={this.onInput}
         onMouseMove={this.onInput}
         onMouseDown={this.onInput}
-        onMouseUp={this.props.nextQuestion}
+        onMouseUp={this.props.onNextQuestion}
         onTouchStart={this.onInput}
-        onTouchEnd={this.props.nextQuestion}
+        onTouchEnd={this.props.onNextQuestion}
         min={this.props.config.min} max={this.props.config.max}
         step={this.props.config.step}
       />

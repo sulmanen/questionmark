@@ -1,213 +1,97 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+
+import { QuestionnaireProgress, Questions } from './';
 
 import {
-  BooleanQuestion,
-  EmailQuestion,
-  RangeQuestion,
-} from './questions';
+  nextQuestion,
+  previousQuestion,
+  changeAnswer,
+  showError,
+  sayThanks,
+  postAnswers,
+} from './actions';
 
-let timeout;
-const STATE_KEY = 'survey-2017';
-
-export default class Questionnaire extends React.Component {
+class Questionnaire extends React.Component {
   static displayName = 'Questionnaire';
 
   static propTypes = {
-    questions: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    intro: React.PropTypes.shape({
-      title: React.PropTypes.string.isRequired,
-      text: React.PropTypes.string.isRequired,
+    onNextQuestion: PropTypes.func.isRequired,
+    onPreviousQuestion: PropTypes.func.isRequired,
+    onChangeAnswer: PropTypes.func.isRequired,
+    onShowError: PropTypes.func.isRequired,
+    onSendAnswers: PropTypes.func.isRequired,
+    displayError: PropTypes.bool.isRequired,
+    displayThankYou: PropTypes.bool.isRequired,
+    sending: PropTypes.bool.isRequired,
+    currentQuestion: PropTypes.number.isRequired,
+    answers: PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    questions: PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    intro: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
     }).isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    const savedState = window.localStorage.getItem(STATE_KEY);
-    if (savedState) {
-      this.state = JSON.parse(savedState);
-    } else {
-      this.state = {
-        answers: {},
-        currentQuestion: 0,
-        sending: false,
-        displayThankYou: false,
-        displayError: false,
-      };
-    }
-  }
-
   nextQuestion = () => {
-    const nextQuestionIndex = this.state.currentQuestion + 1;
-    const state = {
-      ...this.state,
-      currentQuestion: nextQuestionIndex,
-      displayError: false,
-    };
-
-    window.localStorage.setItem(STATE_KEY, JSON.stringify(state));
-
-    if (state.currentQuestion === this.props.questions.length) {
-      this.sendAnswers();
+    if (this.props.currentQuestion === this.props.questions.length) {
+      this.props.onSendAnswers(this.props.answers);
     }
-
-    this.setState(state);
-  }
-
-  goBack = () => {
-    const previousQuestionIndex = this.state.currentQuestion - 1;
-
-    const state = {
-      ...this.state,
-      currentQuestion: previousQuestionIndex,
-      displayError: false,
-    };
-
-    window.localStorage.setItem(STATE_KEY, JSON.stringify(state));
-    this.setState(state);
-  }
-
-  changeAnswer = (name, value) => {
-    const answers = this.state.answers;
-    answers[name] = value;
-    window.clearTimeout(timeout);
-
-    this.setState({
-      ...this.state,
-      answers,
-      displayError: false,
-    });
-  }
-
-  showError = () => {
-    this.setState({
-      ...this.state,
-      sending: false,
-      displayError: true,
-    });
-  }
-
-  sayThanks = () => {
-    this.setState({
-      ...this.state,
-      displayThankYou: true,
-      displayError: false,
-    });
-  }
-
-  toggleSpinner = (isSending) => {
-    this.setState({
-      ...this.state,
-      sending: isSending,
-    });
-  }
-
-  startSpinner = () => {
-    this.toggleSpinner(true);
-  }
-
-  stopSpinner = () => {
-    this.toggleSpinner(false);
-  }
-
-  sendAnswers = () => {
-    const request = new window.XMLHttpRequest();
-    const data = { ...this.state.answers, sent: Date.now() };
-
-    this.startSpinner();
-    request.onreadystatechange = () => {
-      if (request.readyState === window.XMLHttpRequest.DONE) {
-        if (request.status === 201) {
-          this.stopSpinner();
-          this.sayThanks();
-          window.localStorage.removeItem(STATE_KEY);
-        } else {
-          this.showError();
-        }
-      }
-    };
-
-    request.open('POST', 'answers', true);
-    request.setRequestHeader('Content-type', 'application/json');
-    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-    request.send(JSON.stringify(data));
   }
 
   render() {
-    const questions = this.props.questions.map((question) => {
-      switch (question.type) {
-        case 'email': {
-          return (<EmailQuestion
-            currentQuestion={this.state.currentQuestion}
-            id={question.id}
-            key={question.id}
-            name={question.name}
-            text={question.text}
-            nextQuestion={this.nextQuestion}
-            changeAnswer={this.changeAnswer}
-          />);
-        }
+    return (<div className={this.props.sending ? 'spinner q-groupwork' : 'q-groupwork'}>
 
-        case 'range': {
-          return (<RangeQuestion
-            currentQuestion={this.state.currentQuestion}
-            id={question.id}
-            key={question.id}
-            name={question.name}
-            text={question.text}
-            config={question.config}
-            changeAnswer={this.changeAnswer}
-            nextQuestion={this.nextQuestion}
-          />);
-        }
-
-        case 'boolean':
-        default: {
-          return (<BooleanQuestion
-            currentQuestion={this.state.currentQuestion}
-            id={question.id}
-            key={question.id}
-            name={question.name}
-            text={question.text}
-            config={question.config}
-            changeAnswer={this.changeAnswer}
-            nextQuestion={this.nextQuestion}
-          />);
-        }
-      }
-    });
-
-    const bubbles = this.props.questions.map((question) => {
-      if (this.state.currentQuestion >= question.id) {
-        return <div key={question.id} className="q-bubble q-active" />;
-      }
-
-      return <div key={question.id} className="q-bubble" />;
-    });
-
-    return (<div className={this.state.sending ? 'spinner q-groupwork' : 'q-groupwork'}>
-
-      <div style={{ display: this.state.displayThankYou ? 'block' : 'none' }}>
+      <div style={{ display: this.props.displayThankYou ? 'block' : 'none' }}>
         <div className="checkmark" />
         <h1>Thank you!</h1>
       </div>
-      <div style={{ display: this.state.displayError ? 'block' : 'none' }} >
+
+      <div style={{ display: this.props.displayError ? 'block' : 'none' }} >
         <div className="q-error">X</div>
         <h1>Oops. We messed up!</h1>
       </div>
 
       <button
-        onClick={this.goBack}
+        onClick={this.props.onPreviousQuestion}
         className="q-back fa fa-arrow-circle-left fa-5"
-        style={{ display: this.state.currentQuestion > 0 && !this.state.displayThankYou && !this.state.displayError && !this.state.sending ? 'block' : 'none' }}
+        style={{ display: this.props.currentQuestion > 0 && !this.props.displayThankYou && !this.props.displayError && !this.props.sending ? 'block' : 'none' }}
       />
 
-      <section style={{ display: this.state.currentQuestion === 0 ? 'block' : 'none' }}>
+      <section style={{ display: this.props.currentQuestion === 0 ? 'block' : 'none' }}>
         <h1>{this.props.intro.title}</h1>
         <h5>{this.props.intro.text}</h5>
       </section>
-      {questions}
-      <div className="q-bubbles" style={{ display: this.state.currentQuestion === this.props.questions.length ? 'none' : 'block' }}>{bubbles}</div>
+      <Questions
+        questions={this.props.questions}
+        currentQuestion={this.props.currentQuestion}
+        onChangeAnswer={this.props.onChangeAnswer}
+        onNextQuestion={this.props.onNextQuestion}
+        onShowError={this.props.onShowError}
+      />
+      <div className="q-bubbles" style={{ display: this.props.currentQuestion === this.props.questions.length ? 'none' : 'block' }}>
+        <QuestionnaireProgress
+          questions={this.props.questions}
+          currentQuestion={this.props.currentQuestion}
+        />
+      </div>
     </div>);
   }
 }
+
+export default connect(state =>
+ {
+  currentQuestion: state.currentQuestion,
+  sending: state.sending,
+  answers: state.answers,
+  displayError: state.displayError,
+  displayThankYou: state.displayThankYou,
+},
+dispatch => {
+  onNextQuestion: () => dispatch(nextQuestion()),
+  onPreviousQuestion: () => dispatch(previousQuestion()),
+  onChangeAnswer: (question, answer) => dispatch(changeAnswer(question, answer)),
+  onShowError: () => dispatch(showError()),
+  onSayThanks: () => dispatch(sayThanks()),
+  onSendAnswers: answers => dispatch(postAnswers(answers)),
+})(Questionnaire);
