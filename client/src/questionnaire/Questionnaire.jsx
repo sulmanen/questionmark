@@ -79,25 +79,17 @@ class Questionnaire extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    currentQuestion: state.currentQuestion,
-    sending: state.sending,
-    answers: state.answers,
-    displayError: state.displayError,
-    displayThankYou: state.displayThankYou,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    onNextQuestion: () => dispatch(nextQuestion()),
-    onPreviousQuestion: () => dispatch(previousQuestion()),
-    onChangeAnswer: (question, answer) => dispatch(changeAnswer(question, answer)),
-    onShowError: () => dispatch(showError()),
-    onSayThanks: () => dispatch(sayThanks()),
-    onSendAnswers: answers => dispatch(postAnswers(answers)),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Questionnaire);
+export default connect(state => ({
+  currentQuestion: state.currentQuestion,
+  sending: state.sending,
+  answers: state.answers,
+  displayError: state.displayError,
+  displayThankYou: state.displayThankYou,
+}), dispatch => ({
+  onNextQuestion: () => dispatch(nextQuestion()),
+  onPreviousQuestion: () => dispatch(previousQuestion()),
+  onChangeAnswer: (question, answer) => dispatch(changeAnswer(question, answer)),
+  onShowError: () => dispatch(showError()),
+  onSayThanks: () => dispatch(sayThanks()),
+  onSendAnswers: answers => dispatch(postAnswers(answers)),
+}))(Questionnaire);

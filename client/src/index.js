@@ -1,4 +1,4 @@
-const STATE_KEY = 'survey-2017';
+export const STATE_KEY = 'survey-2017';
 const INITIAL_STATE = {
   answers: {},
   currentQuestion: 0,
@@ -8,4 +8,3 @@ const INITIAL_STATE = {
 };
 
 export default INITIAL_STATE;
-export STATE_KEY;
