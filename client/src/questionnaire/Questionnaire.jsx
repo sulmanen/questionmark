@@ -63,6 +63,7 @@ class Questionnaire extends React.Component {
       </section>
       <Questions
         questions={this.props.questions}
+        answers={this.props.answers}
         currentQuestion={this.props.currentQuestion}
         error={this.props.error}
         onChangeAnswer={this.props.onChangeAnswer}
@@ -79,18 +80,16 @@ class Questionnaire extends React.Component {
   }
 }
 
-export default connect(({ questionnaire }) => {
-  console.log(questionnaire);
-  return ({
-    currentQuestion: questionnaire.currentQuestion,
-    sending: questionnaire.sending,
-    answers: questionnaire.answers,
-    error: questionnaire.error,
-    thanks: questionnaire.thanks,
-  })}, dispatch => ({
-    onNextQuestion: () => dispatch(nextQuestion()),
-    onPreviousQuestion: () => dispatch(previousQuestion()),
-    onChangeAnswer: (question, answer) => dispatch(changeAnswer(question, answer)),
-    onError: () => dispatch(showError()),
-    onSendAnswers: answers => dispatch(postAnswers(answers)),
-  }))(Questionnaire);
+export default connect(({ questionnaire }) => ({
+  currentQuestion: questionnaire.currentQuestion,
+  sending: questionnaire.sending,
+  answers: questionnaire.answers,
+  error: questionnaire.error,
+  thanks: questionnaire.thanks,
+}), dispatch => ({
+  onNextQuestion: () => dispatch(nextQuestion()),
+  onPreviousQuestion: () => dispatch(previousQuestion()),
+  onChangeAnswer: (question, answer) => dispatch(changeAnswer(question, answer)),
+  onError: () => dispatch(showError()),
+  onSendAnswers: answers => dispatch(postAnswers(answers)),
+}))(Questionnaire);

@@ -4,6 +4,10 @@ export default class RangeQuestion extends React.PureComponent {
 
   static displayName = 'RangeQuestion';
 
+  static defaltProps = {
+    answer: null,
+  };
+
   static propTypes = {
     id: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired,
@@ -16,22 +20,15 @@ export default class RangeQuestion extends React.PureComponent {
       minText: PropTypes.string,
       maxText: PropTypes.string,
     }).isRequired,
+    defaultValue: PropTypes.number.isRequired,
+    answer: PropTypes.number,
     name: PropTypes.string.isRequired,
     onChangeAnswer: PropTypes.func.isRequired,
     onNextQuestion: PropTypes.func.isRequired,
     currentQuestion: PropTypes.number.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    const { max, min } = props.config;
 
-    if (max === 1) {
-      this.state = { value: 1 };
-    } else {
-      this.state = { value: Math.floor((max - min) / 2) + min };
-    }
-  }
 
   onInput = (e) => {
     this.props.onChangeAnswer(this.props.name, parseInt(e.target.value, 10));
@@ -53,12 +50,12 @@ export default class RangeQuestion extends React.PureComponent {
         {this.props.config.skipText} <span className="q-skip-arrow">&gt;&gt;</span>
       </button>
 
-      <div className="q-range-value">{this.state.value}</div>
+      <div className="q-range-value">{this.props.answer || this.props.defaultValue}</div>
 
       <input
         className="q-range"
         type="range"
-        defaultValue={this.state.value}
+        defaultValue={this.props.defaultValue}
         onInput={this.onInput}
         onMouseMove={this.onInput}
         onMouseDown={this.onInput}

@@ -6,8 +6,9 @@ import {
   RangeQuestion,
 } from './questions';
 
-let Questions = ({
+const Questions = ({
   questions,
+  answers,
   currentQuestion,
   error,
   onChangeAnswer,
@@ -30,8 +31,12 @@ let Questions = ({
         }
 
         case 'range': {
+          const { max, min } = question.config;
+
           return (<RangeQuestion
             currentQuestion={currentQuestion}
+            defaultValue={max === 1 ? 1 : Math.floor((max - min) / 2) + min}
+            answer={answers[question.name]}
             id={question.id}
             key={question.id}
             name={question.name}
@@ -58,7 +63,7 @@ let Questions = ({
     });
     return (<div>{questionsView}</div>);
   };
-
+  
   Questions.PropTypes = {
     questions: PropTypes.arrayOf(PropTypes.object).isRequired,
     currentQuestion: PropTypes.number.isRequired,

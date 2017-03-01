@@ -11,7 +11,7 @@ const questionnaire = (state = INITIAL_STATE, action) => {
       };
     }
     case 'PREVIOUS_QUESTION': {
-      const previousQuestionIndex = this.state.currentQuestion - 1;
+      const previousQuestionIndex = state.currentQuestion - 1;
       return {
         ...state,
         currentQuestion: previousQuestionIndex,
@@ -42,8 +42,7 @@ const questionnaire = (state = INITIAL_STATE, action) => {
       const answers = {
         ...state.answers,
       };
-
-      answers[action.questionId] = action.answer;
+      answers[action.question] = action.answer;
 
       return {
         ...state,
