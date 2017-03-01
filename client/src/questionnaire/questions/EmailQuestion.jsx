@@ -9,7 +9,7 @@ export default class EmailQuestion extends React.Component {
     currentQuestion: PropTypes.number.isRequired,
     error: PropTypes.bool.isRequired,
     onChangeAnswer: PropTypes.func.isRequired,
-    onNextQuestion: PropTypes.func.isRequired,
+    onNextQuestionCheckDone: PropTypes.func.isRequired,
     onError: PropTypes.func.isRequired,
   };
 
@@ -27,7 +27,7 @@ export default class EmailQuestion extends React.Component {
   submit = (valid, value) => {
     if (valid) {
       this.props.onChangeAnswer(this.props.name, value);
-      this.props.onNextQuestion();
+      this.props.onNextQuestionCheckDone(this.props.currentQuestion);
     } else {
       this.props.onError();
     }

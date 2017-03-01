@@ -75,8 +75,8 @@ export const postAnswers = answers => (dispatch) => {
 };
 
 export const nextQuestionCheckDone = (currentQuestion, totalSize, answers) => (dispatch) => {
-  dispatch(nextQuestion);
-  if (currentQuestion === totalSize) {
+  dispatch(nextQuestion());
+  if (currentQuestion === totalSize - 1) {
     return dispatch(postAnswers(answers));
   }
   return Promise.resolve(answers);

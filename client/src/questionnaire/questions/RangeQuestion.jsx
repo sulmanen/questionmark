@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react';
 export default class RangeQuestion extends React.PureComponent {
 
   static displayName = 'RangeQuestion';
+
   static defaltProps = {
     answer: null,
   };
@@ -23,19 +24,22 @@ export default class RangeQuestion extends React.PureComponent {
     answer: PropTypes.number,
     name: PropTypes.string.isRequired,
     onChangeAnswer: PropTypes.func.isRequired,
-    onNextQuestion: PropTypes.func.isRequired,
+    onNextQuestionCheckDone: PropTypes.func.isRequired,
     currentQuestion: PropTypes.number.isRequired,
   };
-
-
 
   onInput = (e) => {
     this.props.onChangeAnswer(this.props.name, parseInt(e.target.value, 10));
   }
 
+  handleAnswer = (e) => {
+    this.props.onChangeAnswer(this.props.name, parseInt(e.target.value, 10));
+    this.props.onNextQuestionCheckDone(this.props.currentQuestion);
+  }
+
   skip = () => {
     this.props.onChangeAnswer(this.props.name, 0);
-    this.props.onNextQuestion();
+    this.props.onNextQuestionCheckDone(this.props.currentQuestion);
   }
 
   render() {
@@ -58,9 +62,9 @@ export default class RangeQuestion extends React.PureComponent {
         onInput={this.onInput}
         onMouseMove={this.onInput}
         onMouseDown={this.onInput}
-        onMouseUp={this.props.onNextQuestion}
+        onMouseUp={this.handleAnswer}
         onTouchStart={this.onInput}
-        onTouchEnd={this.props.onNextQuestion}
+        onTouchEnd={this.handleAnswer}
         min={this.props.config.min} max={this.props.config.max}
         step={this.props.config.step}
       />

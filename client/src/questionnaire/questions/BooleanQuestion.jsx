@@ -8,7 +8,7 @@ export default class BooleanQuestion extends React.Component {
     name: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     onChangeAnswer: PropTypes.func.isRequired,
-    onNextQuestion: PropTypes.func.isRequired,
+    onNextQuestionCheckDone: PropTypes.func.isRequired,
     currentQuestion: PropTypes.number.isRequired,
     config: PropTypes.shape({
       minText: PropTypes.string.isRequired,
@@ -18,7 +18,7 @@ export default class BooleanQuestion extends React.Component {
 
   answer = (value) => {
     this.props.onChangeAnswer(this.props.name, value);
-    this.props.onNextQuestion();
+    this.props.onNextQuestionCheckDone(this.props.currentQuestion);
   }
 
   sayMin = () => {

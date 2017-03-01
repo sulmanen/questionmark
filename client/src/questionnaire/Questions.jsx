@@ -12,7 +12,7 @@ const Questions = ({
   currentQuestion,
   error,
   onChangeAnswer,
-  onNextQuestion,
+  onNextQuestionCheckDone,
   onError }) => {
     const questionsView = questions.map((question) => {
       switch (question.type) {
@@ -25,7 +25,7 @@ const Questions = ({
             text={question.text}
             error={error}
             onError={onError}
-            onNextQuestion={onNextQuestion}
+            onNextQuestionCheckDone={onNextQuestionCheckDone}
             onChangeAnswer={onChangeAnswer}
           />);
         }
@@ -43,7 +43,7 @@ const Questions = ({
             text={question.text}
             config={question.config}
             onChangeAnswer={onChangeAnswer}
-            onNextQuestion={onNextQuestion}
+            onNextQuestionCheckDone={onNextQuestionCheckDone}
           />);
         }
         case 'boolean':
@@ -56,14 +56,14 @@ const Questions = ({
             text={question.text}
             config={question.config}
             onChangeAnswer={onChangeAnswer}
-            onNextQuestion={onNextQuestion}
+            onNextQuestionCheckDone={onNextQuestionCheckDone}
           />);
         }
       }
     });
     return (<div>{questionsView}</div>);
   };
-  
+
   Questions.PropTypes = {
     questions: PropTypes.arrayOf(PropTypes.object).isRequired,
     currentQuestion: PropTypes.number.isRequired,

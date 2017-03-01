@@ -19,7 +19,6 @@ class Questionnaire extends React.Component {
     onPreviousQuestion: PropTypes.func.isRequired,
     onChangeAnswer: PropTypes.func.isRequired,
     onError: PropTypes.func.isRequired,
-    onSendAnswers: PropTypes.func.isRequired,
     error: PropTypes.bool.isRequired,
     thanks: PropTypes.bool.isRequired,
     sending: PropTypes.bool.isRequired,
@@ -61,7 +60,7 @@ class Questionnaire extends React.Component {
         currentQuestion={this.props.currentQuestion}
         error={this.props.error}
         onChangeAnswer={this.props.onChangeAnswer}
-        onNextQuestion={this.props.onNextQuestionCheckDone}
+        onNextQuestionCheckDone={this.props.onNextQuestionCheckDone}
         onError={this.props.onError}
       />
       <div className="q-bubbles" style={{ display: this.props.currentQuestion === this.props.questions.length ? 'none' : 'block' }}>
@@ -80,9 +79,10 @@ export default connect(({ questionnaire }) => ({
   answers: questionnaire.answers,
   error: questionnaire.error,
   thanks: questionnaire.thanks,
-}), dispatch => ({
-  onNextQuestionCheckDone: (currentQuestion, totalSize, answers) =>
-    dispatch(nextQuestionCheckDone(currentQuestion, totalSize, answers)),
+}), (dispatch, ownProps) => ({
+  onNextQuestionCheckDone: currentQuestion =>
+     dispatch(nextQuestionCheckDone(currentQuestion,
+        ownProps.questions.length, ownProps.answers)),
   onPreviousQuestion: () => dispatch(previousQuestion()),
   onChangeAnswer: (question, answer) => dispatch(changeAnswer(question, answer)),
   onError: () => dispatch(showError()),
