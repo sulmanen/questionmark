@@ -3,7 +3,7 @@ import { INITIAL_STATE } from '../';
 const questionnaire = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case 'NEXT_QUESTION': {
-      const nextQuestionIndex = this.state.currentQuestion + 1;
+      const nextQuestionIndex = state.currentQuestion + 1;
       return {
         ...state,
         currentQuestion: nextQuestionIndex,
