@@ -64,12 +64,12 @@ const Questions = ({
     return (<div>{questionsView}</div>);
   };
 
-  Questions.PropTypes = {
+  Questions.propTypes = {
     questions: PropTypes.arrayOf(PropTypes.object).isRequired,
     currentQuestion: PropTypes.number.isRequired,
     error: PropTypes.bool.isRequired,
     onChangeAnswer: PropTypes.func.isRequired,
-    onNextQuestion: PropTypes.func.isRequired,
+    onNextQuestionCheckDone: PropTypes.func.isRequired,
     onError: PropTypes.func.isRequired,
   };
   export default Questions;
