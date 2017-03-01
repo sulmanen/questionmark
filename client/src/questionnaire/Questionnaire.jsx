@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { QuestionnaireProgress, Questions } from './';
 
 import {
-  nextQuestion,
+  nextQuestionCheckDone,
   previousQuestion,
   changeAnswer,
   showError,
@@ -15,7 +15,7 @@ class Questionnaire extends React.Component {
   static displayName = 'Questionnaire';
 
   static propTypes = {
-    onNextQuestion: PropTypes.func.isRequired,
+    onNextQuestionCheckDone: PropTypes.func.isRequired,
     onPreviousQuestion: PropTypes.func.isRequired,
     onChangeAnswer: PropTypes.func.isRequired,
     onError: PropTypes.func.isRequired,
@@ -31,12 +31,6 @@ class Questionnaire extends React.Component {
       text: PropTypes.string.isRequired,
     }).isRequired,
   };
-
-  nextQuestion = () => {
-    if (this.props.currentQuestion === this.props.questions.length) {
-      this.props.onSendAnswers(this.props.answers);
-    }
-  }
 
   render() {
     return (<div className={this.props.sending ? 'spinner q-groupwork' : 'q-groupwork'}>
@@ -67,7 +61,7 @@ class Questionnaire extends React.Component {
         currentQuestion={this.props.currentQuestion}
         error={this.props.error}
         onChangeAnswer={this.props.onChangeAnswer}
-        onNextQuestion={this.props.onNextQuestion}
+        onNextQuestion={this.props.onNextQuestionCheckDone}
         onError={this.props.onError}
       />
       <div className="q-bubbles" style={{ display: this.props.currentQuestion === this.props.questions.length ? 'none' : 'block' }}>
@@ -87,7 +81,8 @@ export default connect(({ questionnaire }) => ({
   error: questionnaire.error,
   thanks: questionnaire.thanks,
 }), dispatch => ({
-  onNextQuestion: () => dispatch(nextQuestion()),
+  onNextQuestionCheckDone: (currentQuestion, totalSize, answers) =>
+    dispatch(nextQuestionCheckDone(currentQuestion, totalSize, answers)),
   onPreviousQuestion: () => dispatch(previousQuestion()),
   onChangeAnswer: (question, answer) => dispatch(changeAnswer(question, answer)),
   onError: () => dispatch(showError()),

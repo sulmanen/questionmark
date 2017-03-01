@@ -73,3 +73,11 @@ export const postAnswers = answers => (dispatch) => {
     return err;
   });
 };
+
+export const nextQuestionCheckDone = (currentQuestion, totalSize, answers) => (dispatch) => {
+  dispatch(nextQuestion);
+  if (currentQuestion === totalSize) {
+    return dispatch(postAnswers(answers));
+  }
+  return Promise.resolve(answers);
+};

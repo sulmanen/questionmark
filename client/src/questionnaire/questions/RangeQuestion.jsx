@@ -3,7 +3,6 @@ import React, { PropTypes } from 'react';
 export default class RangeQuestion extends React.PureComponent {
 
   static displayName = 'RangeQuestion';
-
   static defaltProps = {
     answer: null,
   };
