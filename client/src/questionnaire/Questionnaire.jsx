@@ -58,43 +58,43 @@ const Questionnaire = ({
   <div
     className="q-bubbles"
     style={{ display: currentQuestion === questions.length ? 'none' : 'block' }}
-    >
-      <QuestionnaireProgress
-        questions={questions}
-        currentQuestion={currentQuestion}
-      />
-    </div>
-  </div>);
+  >
+    <QuestionnaireProgress
+      questions={questions}
+      currentQuestion={currentQuestion}
+    />
+  </div>
+</div>);
 
-  Questionnaire.propTypes = {
-    onNextQuestionCheckDone: PropTypes.func.isRequired,
-    onPreviousQuestion: PropTypes.func.isRequired,
-    onChangeAnswer: PropTypes.func.isRequired,
-    onError: PropTypes.func.isRequired,
-    error: PropTypes.bool.isRequired,
-    thanks: PropTypes.bool.isRequired,
-    sending: PropTypes.bool.isRequired,
-    currentQuestion: PropTypes.number.isRequired,
-    answers: PropTypes.object.isRequired, // eslint-disable-line jsx/forbid-prop-types
-    questions: PropTypes.arrayOf(PropTypes.object).isRequired,
-    intro: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-    }).isRequired,
-  };
+Questionnaire.propTypes = {
+  onNextQuestionCheckDone: PropTypes.func.isRequired,
+  onPreviousQuestion: PropTypes.func.isRequired,
+  onChangeAnswer: PropTypes.func.isRequired,
+  onError: PropTypes.func.isRequired,
+  error: PropTypes.bool.isRequired,
+  thanks: PropTypes.bool.isRequired,
+  sending: PropTypes.bool.isRequired,
+  currentQuestion: PropTypes.number.isRequired,
+  answers: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  questions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  intro: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
-  export default connect(({ questionnaire }) => ({
-    currentQuestion: questionnaire.currentQuestion,
-    sending: questionnaire.sending,
-    answers: questionnaire.answers,
-    error: questionnaire.error,
-    thanks: questionnaire.thanks,
-  }), (dispatch, ownProps) => ({
-    onNextQuestionCheckDone: currentQuestion =>
-    dispatch(nextQuestionCheckDone(currentQuestion,
-      ownProps.questions.length, ownProps.answers)),
-      onPreviousQuestion: () => dispatch(previousQuestion()),
-      onChangeAnswer: (question, answer) => dispatch(changeAnswer(question, answer)),
-      onError: () => dispatch(showError()),
-      onSendAnswers: answers => dispatch(postAnswers(answers)),
-    }))(Questionnaire);
+export default connect(({ questionnaire }) => ({
+  currentQuestion: questionnaire.currentQuestion,
+  sending: questionnaire.sending,
+  answers: questionnaire.answers,
+  error: questionnaire.error,
+  thanks: questionnaire.thanks,
+}), (dispatch, ownProps) => ({
+  onNextQuestionCheckDone: currentQuestion =>
+  dispatch(nextQuestionCheckDone(currentQuestion,
+    ownProps.questions.length, ownProps.answers)),
+  onPreviousQuestion: () => dispatch(previousQuestion()),
+  onChangeAnswer: (question, answer) => dispatch(changeAnswer(question, answer)),
+  onError: () => dispatch(showError()),
+  onSendAnswers: answers => dispatch(postAnswers(answers)),
+}))(Questionnaire);

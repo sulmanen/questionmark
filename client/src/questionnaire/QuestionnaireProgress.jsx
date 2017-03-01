@@ -13,7 +13,7 @@ const QuestionnaireProgress = ({ questions, currentQuestion }) => {
   return (<div>{questionnaireProgressView}</div>);
 };
 
-QuestionnaireProgress.PropTypes = {
+QuestionnaireProgress.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentQuestion: PropTypes.number.isRequired,
 };

@@ -4,7 +4,7 @@ export default class RangeQuestion extends React.PureComponent {
 
   static displayName = 'RangeQuestion';
 
-  static defaltProps = {
+  static defaultProps = {
     answer: null,
   };
 
